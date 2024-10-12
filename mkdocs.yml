@@ -28,8 +28,7 @@ plugins:
 nav:
     - Home: index.md
     - Blog:
-      - blog/Welcome.md
-      - blog/posts/FirstPost.md
+      - Welcome: blog\index.md
     - Homelab Projects:
       - Welcome: HomeLab/index.md
       - Windows Server: HomeLab/WinSrv.md
