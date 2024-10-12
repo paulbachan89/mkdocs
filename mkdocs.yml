@@ -29,6 +29,7 @@ nav:
     - Home: index.md
     - Blog:
       - Welcome: blog\index.md
+      - Project 1: blog\posts\firstp.md
     - Homelab Projects:
       - Welcome: HomeLab/index.md
       - Windows Server: HomeLab/WinSrv.md
