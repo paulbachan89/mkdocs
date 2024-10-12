@@ -30,4 +30,7 @@ nav:
     - Blog:
       - blog/Welcome.md
       - blog/posts/FirstPost.md
+    - Homelab Projects:
+      - Welcome: HomeLab/index.md
+      - Windows Server: HomeLab/WinSrv.md
     - About: about.md
