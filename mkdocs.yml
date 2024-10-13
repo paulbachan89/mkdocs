@@ -20,13 +20,20 @@ theme:
     - search.suggest
     - search.highlight
 
+extra_javascript:
+  - js/open-new-tab.js
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css
+
+
+  
 plugins:
   - search
   - blogging
 
 markdown_extensions:
-  - pymdownx.image:
-      lightbox: true
+  - pymdownx.superfences
 
 
 
@@ -42,6 +49,7 @@ nav:
           - Overview: HomeLab/Projects/WinSrv.md
           - DC-01: HomeLab/Projects/dc01.md
         - Linux Server:
+          - Installing Debian 12: HomeLab/Linux/Debian_12.md
           - DHCP Project: HomeLab/Linux/dhcp.md
       - Welcome: HomeLab/index.md
     - About: about.md
