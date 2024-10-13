@@ -46,10 +46,10 @@ nav:
       - Projects: 
         - Overview: HomeLab/Projects/projects.md
         - Windows Server: 
+          - Welcome: HomeLab/index.md
           - Overview: HomeLab/Projects/WinSrv.md
           - DC-01: HomeLab/Projects/dc01.md
         - Linux Server:
           - Installing Debian 12: HomeLab/Linux/Debian_12.md
           - DHCP Project: HomeLab/Linux/dhcp.md
-      - Welcome: HomeLab/index.md
     - About: about.md
