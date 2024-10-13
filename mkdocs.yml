@@ -28,9 +28,15 @@ plugins:
 nav:
     - Home: index.md
     - Blog:
-      - Welcome: blog\index.md
-      - Project 1: blog\posts\firstp.md
+      - Welcome: blog/index.md
+      - Project 1: blog/posts/firstp.md
     - Homelab Projects:
+      - Projects: 
+        - Overview: HomeLab/Projects/projects.md
+        - Windows Server: 
+          - Overview: HomeLab/Projects/WinSrv.md
+          - DC-01: HomeLab/Projects/dc01.md
+        - Linux Server:
+          - DHCP Project: HomeLab/Linux/dhcp.md
       - Welcome: HomeLab/index.md
-      - Windows Server: HomeLab/WinSrv.md
     - About: about.md
