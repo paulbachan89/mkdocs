@@ -43,12 +43,14 @@ nav:
       - Welcome: blog/index.md
       - Project 1: blog/posts/firstp.md
     - Homelab Projects:
-      - Projects: 
-        - Overview: HomeLab/Projects/projects.md
-        - Windows Server: 
-          - Welcome: HomeLab/index.md
-          - DC-01: HomeLab/Projects/dc01.md
-        - Linux Server:
-          - Installing Debian 12: HomeLab/Linux/Debian_12.md
-          - DHCP Project: HomeLab/Linux/dhcp.md
+      - Windows Server Projects:
+        - Overview: HomeLab/Windows_Projects/index.md
+        - Windows Server Installation:
+            - Windows Server Installation: HomeLab/Windows_Projects/Windows_Server_Install/WinSrvInstall.md
+        - Active Directory:
+            - Welcome: HomeLab/Windows_Projects/Welcome.md
+            - DC-01: HomeLab/Windows_Projects/dc01.md
+      - Linux Projects:
+        - Installing Debian 12: HomeLab/Linux_Projects/Debian_12.md
+        - DHCP Project: HomeLab/Linux_Projects/dhcp.md
     - About: about.md
