@@ -24,6 +24,11 @@ plugins:
   - search
   - blogging
 
+markdown_extensions:
+  - pymdownx.image:
+      lightbox: true
+
+
 
 nav:
     - Home: index.md
