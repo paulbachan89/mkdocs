@@ -601,6 +601,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuring-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring OPNSense
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -945,6 +954,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#configuring-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring OPNSense
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -963,14 +981,12 @@
   <h1>OPNsense Install</h1>
 
 <h2 id="opnsense-router-setup">OPNSense Router Setup</h2>
-<p>This is an optional step if you're following allowing. The Idea behind this router is to give me my own seperate subnet for me to play with, without having to worry about conflicting IP addresses or an IP address that I would like to use but is already in use. The opnsense router is a simple setup except for a new Firewall Rules that will allow me to communication with my main subnet.</p>
+<p>This is an optional step if you're following allowing. The goal behind this router is to give me my own seperate subnet for me to play with, without having to worry about conflicting IP addresses or an IP address that I would like to use but is already in use. The opnsense router is a simple setup except for a some Firewall Rules that will allow me to communication with my main subnet.</p>
 <p>First thing we'll want to do is to download the ISO for opnsense. It can be found here: </p>
 <p><a href="https://opnsense.org/download/">Download OPNSense</a></p>
 <p>Perfect. I'm going to be uploading the OPNSense ISO File to my VMware ESXi Storage repository. Depending on where you are performing your installation, you'll need to ensure that your Virtual Machine is able to access the ISO since you'll need to mount it.</p>
 <p>First thing I will do will be to create my Virtual Machine for OPNSense</p>
-<ul>
-<li>In ESXi, I click <strong>Create/Register VM</strong> and then at the <strong>Select creation type</strong> I choose <strong>Create a new virtual Machine</strong></li>
-</ul>
+<p>In ESXi, I click <strong>Create/Register VM</strong> and then at the <strong>Select creation type</strong> I choose <strong>Create a new virtual Machine</strong></p>
 <p><a href="../images/opnsense_install/Create_VM1.jpg"><img alt="Select creation type" src="../images/opnsense_install/Create_VM1.jpg" /></a></p>
 <p>Next we will need to <strong>Select a name and Guest OS</strong>. I will choose the easy name and just call it <strong>opnsense-router</strong> for the guest OS I want to ensure that I choose the following:</p>
 <ul>
@@ -992,33 +1008,107 @@
 <li><strong>Network Adapter 2</strong></li>
 </ul>
 <p>Since this is a router, it will need two networking adapter. One for the WAN traffic to talk out to the internet and the other for the LAN traffic where my Windows Servers will exist.</p>
-<p>For my adapter settings. I basically create an internal network that is not able to talk to the main network (10.10.10.0/24), instead I want this network to go through the <strong>WAN interface</strong>. </p>
-<p>You can ignore my naming scheme for my network <strong>Prod-Net</strong> is on the 10.10.10.0/24 network and <strong>PGroup19100</strong> is on the 192.168.100.0/24 network. Of course, the name you gave your network makes a lot more sense that mine.</p>
+<p>For my adapter settings. I'll basically create an internal network that is not able to talk to the main network (192.168.50.0/24 and 10.10.10.0/24), instead I want this network to go through the <strong>WAN interface</strong>. </p>
+<p>You can ignore my naming scheme for my network <strong>PGroup1950</strong> is on the 192.168.50.0/24 network and <strong>PGroup19100</strong> is on the 192.168.100.0/24 network. Of course, the name you gave your network makes a lot more sense that mine.</p>
 <p><a href="../images/opnsense_install/create_vm4.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm4.jpg" /></a></p>
 <p>Once you're done with this section you can click <strong>Next</strong> then <strong>Finish</strong></p>
 <p><a href="../images/opnsense_install/create_vm5.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm5.jpg" /></a></p>
 <h2 id="installing-opnsense">Installing OPNsense</h2>
-<p>Okay, so we've just completed creating our Virtual Machine, next up we will need to install opnsense on the Virtual Machine that we've just created.</p>
+<p>Okay, so we've just completed the creation our Virtual Machine, next up we will need to install opnsense on the Virtual Machine that we've just created.</p>
 <p>In my ESXi host, I'm going to click on my newly create Virtual Machine called: <strong>opnsense-router</strong> and <strong>Start it up</strong></p>
 <p><a href="../images/opnsense_install/install-os1.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os1.jpg" /></a></p>
-<p>You will see a very quick boot screen that gives you about 5 seconds to pause if needed. If your opnsense VM does not boot, you have an issue with the ISO image, try downloading it again maybe trying DVD instead of VGA or another option that it provides. It could also be your Virutal DVD drive is not being detected on your because you did not choose the correct <strong>Guest OS version</strong>.</p>
+<p>You will see a very quick boot screen that gives you about 5 seconds to pause if needed. If your opnsense VM does not boot, there might be an issue with the ISO image, try downloading it again maybe trying DVD instead of VGA or another option that it provides. It could also be your Virutal DVD drive is not being detected on your because you did not choose the correct <strong>Guest OS version</strong>.</p>
 <p>If it does boot successfully, you will see a screen like this:</p>
 <p><a href="../images/opnsense_install/install-os2.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os2.jpg" /></a></p>
-<p>You might have noticed that <strong>LAN</strong> is assigned to <strong>VMX0</strong> and <strong>WAN</strong> is assigned to <strong>VMX1</strong>. The <strong>LAN</strong> has an IP address of <strong>192.168.1.1/24</strong> but there is nothing assigned to <strong>WAN</strong>. The reason this happened is because opnsense automatically assigned out interfaces for us, but to worry, we do not need to use the default settings that is applied to us. We can change this and many other settings as we go further. For now, we are going to install OPNSense on our virtual machine. To do that, at the screen we're currently on. If you've took the time to read you notice that it tells you what to do. You can sign into the <strong>live</strong> mode where you can make changes and configure the router but please note that changes made here will not survive a reboot. To ensure that our changes are kept we will need to install it. We do that by typing <strong>installer</strong> as the username and <strong>opnsense</strong> as the password. Once we do that the installation process begins:</p>
+<p>You might have noticed that OPNSense automatically assigned your <strong>WAN</strong> and <strong>LAN</strong> interfaces. Thankfully OPNSense assigned my interfaces correctly. My <strong>WAN</strong> interface was able to grab an IP address from my Mikrotik Router and my <strong>LAN</strong> interface received the default networking scheme that's created by opnsense.
+If your <strong>WAN</strong> interface does not have an IP address, this could be because opnsense incorrectly assigned your interfaces and they need to be swapped. You can swapped these after the installation since you're in a live environment and the changes you make here will not remain after a reboot.</p>
+<p>To Begin the installation, type <strong>installer</strong> as the username and <strong>opnsense</strong> as the password to begin the installation process.</p>
 <p>First thing, we need choose a <strong>Keymap Selection</strong> I will go with the default keymap but you can choose the one that works best for you:</p>
 <p><a href="../images/opnsense_install/install-os3.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os3.jpg" /></a></p>
+<p>I'll choose <strong>ZFS</strong> as my filesystem here but you can any other of the options</p>
 <p><a href="../images/opnsense_install/install-os4.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os4.jpg" /></a></p>
 <p>Next it will ask me to select the <strong>Virtual Device Type</strong>. Here I will choose <strong>stripe</strong>. I will assigned one hard drive to my opnsense installation so that's all I can do. Since this is just a test lab. I do not need to added security of having a mirror or a different RAID setup in the event of a drive failure. <strong>Stripe</strong> will work in my situation.</p>
 <p><a href="../images/opnsense_install/install-os5.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os5.jpg" /></a></p>
 <p>Next it's going to ask me to confirm which hard drive I will like to install opnsense on. I only have one option so I will press my <strong>spacebar</strong> to select the device then click OK</p>
 <p><a href="../images/opnsense_install/install-os6.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os6.jpg" /></a></p>
-<p>It warns me that the data on the disk is about the get destoryed, since this is a new disk that doesn't contain any data I will say yes.</p>
+<p>It warns me that the data on the disk is about the get destroyed, since this is a new disk that doesn't contain any data I will say yes.</p>
 <p><a href="../images/opnsense_install/install-os7.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os7.jpg" /></a></p>
-<p>Click yes will begin the installation:</p>
+<p>Select <strong>Yes</strong> to begin the installation:</p>
 <p><a href="../images/opnsense_install/install-os8.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os8.jpg" /></a></p>
-<p>If thers is any issues with the hardware you select, this will be where you will see it. It will error out and will stop the installation process. If this happens to you and you're using a physical hardware, ensure that the hardware you're using is compatible with OPNSense. For Virtual Machines, the biggest roadblock here is your hard drive. Ensure you have the correct Hard Drive Controller. For my installation I had <strong>VMWare Paravirtual</strong> selected as my <strong>SCSI Controller 0</strong>. If everything goes well, you will see this screen:</p>
-<p>If you would like to, you can change your root password here but I will complete install and reboot.</p>
+<p>If thers is any issues with the hardware you've selected, this will be where you will see it. It will error out and will stop the installation process. If this happens to you and you're using physical hardware, ensure that the hardware you're using is compatible with OPNSense. For Virtual Machines, the biggest roadblock here is your hard drive. Ensure you have the correct Hard Drive Controller. For my installation I had <strong>VMWare Paravirtual</strong> selected as my <strong>SCSI Controller 0</strong>. If everything goes well, you will see this screen:</p>
+<p>If you would like to, you can change your root password here but I will complete install and reboot since I will be changing the root password when I log into the web portal.</p>
 <p><a href="../images/opnsense_install/install-os9.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os9.jpg" /></a></p>
+<h2 id="configuring-opnsense">Configuring OPNSense</h2>
+<p>Once your opnsense system is back online, you will be back to the main screen. However, this time it's not longer a live enviroment. And any change you make here will still exist after rebooting.</p>
+<p><a href="../images/opnsense_install/config-os1.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os1.jpg" /></a></p>
+<p>Let's start configuring our OPNSense Router. First thing we'll log in using the username and credentials. The username is <strong>root</strong> and the password is <strong>opnsense</strong> if you changed it during the installation you can enter the password you created.</p>
+<p>Logging in will display information about your Network interfaces and IP adderss as well as a menu where you can configure the system.</p>
+<p><a href="../images/opnsense_install/config-os2.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os2.jpg" /></a></p>
+<p>If your Network Interfaces needs to be swapped, this is where you can do it. For example, if you have a IP Address for your <strong>LAN</strong> interface but nothing for your <strong>WAN</strong> interface. Then it's possible that opnsense incorrectly assigned your interfaces, so swapping them should resolve your issue.</p>
+<p>To do that, Enter the number <strong>1</strong> and press enter:</p>
+<p><a href="../images/opnsense_install/config-os3.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os3.jpg" /></a></p>
+<p>It will ask you if you want to configure <strong>LAGGs</strong> now, if you know what this is and would like to configure it, you can say yes, if you don't know what this is, you can say no. Notice the <strong>N</strong> is uppercase and the <strong>y</strong> is lowercase.
+This is because <strong>N</strong> is the default value so if you just press enter, it will select no by default.</p>
+<p><a href="../images/opnsense_install/config-os4.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os4.jpg" /></a></p>
+<p>Next it will ask to configure <strong>VLANs</strong>. I will not be using any VLANs for this router so I will say <strong>no</strong>.</p>
+<p><a href="../images/opnsense_install/config-os5.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os5.jpg" /></a></p>
+<p>Now it will ask you to select your <strong>WAN</strong> interface. Your <strong>WAN</strong> interface is what connects to your gateway that then connects out to the internet. For my setup, the <strong>WAN</strong> interface is <strong>vxm1</strong>. If you mess up here, don't worry you can always go back and change the interfaces.</p>
+<p><a href="../images/opnsense_install/config-os6.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os6.jpg" /></a></p>
+<p>After selecting my <strong>WAN</strong> interface, it will ask me to select my <strong>LAN</strong> which is <strong>vmx0</strong></p>
+<p><a href="../images/opnsense_install/config-os7.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os7.jpg" /></a></p>
+<p>It will ask your to configure an Optional Interface next, since I only have 2 interfaces, I'm not able to configure an optional interface. So I will press enter to proceed.</p>
+<p><a href="../images/opnsense_install/config-os8.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os8.jpg" /></a></p>
+<p>Once I'm done with all of my configuration. I will type <strong>y</strong> to proceed. Remember you have to enter <strong>y</strong> then press enter. If you just press enter it will select the default option which is <strong>N</strong>. </p>
+<p><a href="../images/opnsense_install/config-os9.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os9.jpg" /></a></p>
+<p>Proceeding with the changes, will reload all of the interfaces. Once it's completed, you'll be back at the main screen. From here, hopefully you've been assigned a <strong>WAN</strong> IP address not. if not, and you've already tried swapping your interfaces and you're using a virtual appliance like I am, you might need to take another look at your virtual switch and port groups. Something might be off. You can trying assigned a manual IP address and see if that works. If it does and it looks like it's an issue with your DHCP Service.</p>
+<p>To set your IP address interface, select <strong>(2) Set Interface IP Address</strong> and press <strong>Enter</strong></p>
+<p><a href="../images/opnsense_install/config-os10.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os10.jpg" /></a></p>
+<p>From here it will ask you select the interface you would like to configure. I'll start with my <strong>LAN</strong> interface, so I will type 1 and press <strong>Enter</strong></p>
+<p><a href="../images/opnsense_install/config-os11.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os11.jpg" /></a></p>
+<p>First you will be ask if you would like to configure your <strong>LAN</strong> using DHCP. DHCP started for the <strong>Dynamic Host Configuration Protocol</strong> and it's responsible for automatically handing out IP addresses. I personally did not preconfigure any other DHCP service on my network so I will say no in this situation. If you're not sure you're I would go with no as well.</p>
+<p><a href="../images/opnsense_install/config-os12.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os12.jpg" /></a></p>
+<p>Next it will ask you for your LAN IP address. I personally like to use the last IP Address in the subnet as my IP address for my routers and gateway, but you can use any that you like. First, last or somewhere in the middle.</p>
+<p>This will be the networking scheme I will be using:</p>
+<ul>
+<li>IP address: 192.168.100.254</li>
+<li>Subnet Mask: 255.255.255.0 or 24 bits as it will ask.</li>
+<li>Gateway: None</li>
+</ul>
+<p>The last option it ask if for an upstream gateway. For your LAN you don't have to enter anything here as your <strong>WAN</strong> interface will be responsible for forwarding your traffic to the internet. you can just press <strong>Enter</strong> here.</p>
+<p><a href="../images/opnsense_install/config-os13.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os13.jpg" /></a></p>
+<p>For <strong>IPv6 address LAN interface via WAN tracking</strong> I will just accept the defaults.</p>
+<p><a href="../images/opnsense_install/config-os14.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os14.jpg" /></a></p>
+<p>For the option to <strong>enable the DHCP server on LAN?</strong> I will say <strong>y</strong>. If you went ahead and said no, that's okay as well. It means you will just have to assign your IP address manually but this can be changed later on when we log into the web portal.</p>
+<p>It will ask for a range of IP addresses. By default a /24 or 255.255.255.0 subnet will give you 254 IP addresses that can be used. Since I'm using 192.168.100.254 as my router <strong>LAN</strong> IP address my range will be from 192.168.100.1-192.168.100.253.</p>
+<p>So for the questions - <strong>Enter the start address of the IPv4 client address range:</strong> I will enter: <strong>192.168.100.1</strong> and for the <strong>End IP address</strong> I will enter <strong>192.168.100.253</strong></p>
+<p>Once I'm happy with my choices I will press <strong>Enter</strong> to proceed. </p>
+<p><a href="../images/opnsense_install/config-os15.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os15.jpg" /></a></p>
+<p>For the other Questions:</p>
+<p><strong>Do you want to change the web GUI protocol from https to http?</strong>: <strong>no</strong> - accept the default
+<strong>Do you want to generate a new self-signed web GUI certificate?</strong> : <strong>no</strong> - I will choose no here, but if you are having certificate issues, you can say yes.
+<strong>Restore web GUI access defaults?</strong> - <strong>no</strong> - You can say yes, if you're having issues with the web GUI.</p>
+<p><a href="../images/opnsense_install/config-os16.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os16.jpg" /></a></p>
+<p>Once you're done all of your selections, you can proceed. Opnsense will do another reload to apply the configurations you've just selected.</p>
+<p><strong>Now let's configure our WAN Interface</strong></p>
+<p>Select option <strong>2</strong>: similar to how we did when we configured the <strong>LAN</strong> and then select option <strong>2</strong> to configure your <strong>WAN</strong> interface.</p>
+<p><a href="../images/opnsense_install/config-os17.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os17.jpg" /></a></p>
+<p>First question it will ask is if you want to configure your <strong>WAN</strong> interface to use DHCP. I will say no to maually set my IP address. For my <strong>WAN</strong> configuration. I will use the following:</p>
+<ul>
+<li><strong>IP address</strong> - 192.168.50.100</li>
+<li><strong>Subnet Mask</strong> - 255.255.255.0</li>
+<li><strong>Gateway</strong> - 192.168.50.254</li>
+</ul>
+<p><strong>Do you want to use the gateway as the IPv4 name server, too?</strong> - I will choose <strong>n</strong> here.</p>
+<p>For the name server I will use: <strong>1.1.1.1</strong></p>
+<p>Opnsense will ask you a few questions about configuring the GUI. you can say no to all of these as you won't be logging into the GUI using the <strong>WAN</strong> IP address. OPNsense by default blocks GUI access through the <strong>WAN</strong></p>
+<p><strong>Configure IPv6 address WAN interface via DHCP6?</strong> - <strong>no</strong></p>
+<p><strong>Do you want to change the web GUI protocol from https to http?</strong>: <strong>no</strong></p>
+<p><strong>Do you want to generate a new self-signed web GUI certificate?</strong> : <strong>no</strong></p>
+<p><strong>Restore web GUI access defaults?</strong> - <strong>no</strong></p>
+<p><a href="../images/opnsense_install/config-os19.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os19.jpg" /></a></p>
+<p>Once again. Opnsense will reload to apply the settings you just configured. </p>
+<p>At point this, your opnsense router is fully configured to help be the gateway for the new Windows Server Lab we will build. Once again, this is an optional step. you don't have to do this, as you can just use any free IP address to configure your Windows Servers. However, there is still more to be done with our router.</p>
+<p>If you've made it this far. Thank you for reading. Next up we will start to configure out Windows Servers.</p>
 
 
 

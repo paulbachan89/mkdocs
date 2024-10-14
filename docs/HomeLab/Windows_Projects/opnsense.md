@@ -221,9 +221,9 @@ Opnsense will ask you a few questions about configuring the GUI. you can say no 
 
 [![Installing OPNsense](images/opnsense_install/config-os19.jpg)](images/opnsense_install/config-os19.jpg)
 
-Once again. Opnsense will reload to apply the settings you just configured.
+Once again. Opnsense will reload to apply the settings you just configured. 
 
-At point this, your opnsense router is fully configured to help be the gateway for the new Windows Server Lab we will build. Once again, this is an optional step. you don't have to do this, as you can just use any free IP address to configure your Windows Servers. 
+At point this, your opnsense router is fully configured to help be the gateway for the new Windows Server Lab we will build. Once again, this is an optional step. you don't have to do this, as you can just use any free IP address to configure your Windows Servers. However, there is still more to be done with our router.
 
 If you've made it this far. Thank you for reading. Next up we will start to configure out Windows Servers.
 
