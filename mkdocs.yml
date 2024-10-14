@@ -44,8 +44,9 @@ nav:
       - Project 1: blog/posts/firstp.md
     - Homelab Projects:
       - Windows Server Projects:
+        - Project Goals: HomeLab/Windows_Projects/Project_Goals.md
         - Overview: HomeLab/Windows_Projects/index.md
-        - Windows Server Installation:
+        - Windows Server:
             - Windows Server Installation: HomeLab/Windows_Projects/Windows_Server_Install/WinSrvInstall.md
         - Active Directory:
             - Welcome: HomeLab/Windows_Projects/Welcome.md
