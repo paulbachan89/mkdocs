@@ -592,6 +592,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#installing-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing OPNsense
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -927,6 +936,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#installing-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing OPNsense
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -960,7 +978,47 @@
 <li><strong>Guest OS family</strong> - Other</li>
 <li><strong>Guest OS version</strong> - FreeBSD 14 or later versions (64-bit)</li>
 </ul>
+<p>The <strong>Guest OS version</strong> is important here because if you choose something else, your opnsense vm or installation might not go through because of the different driver options.</p>
 <p><a href="../images/opnsense_install/create_vm2.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm2.jpg" /></a></p>
+<p><strong>Select storage</strong> is the next option. I have a few different hard drives to choose from so I'll just choose: <strong>DS1-1TB</strong></p>
+<p><a href="../images/opnsense_install/create_vm3.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm3.jpg" /></a></p>
+<p>Here is the more important settings to choose. The <strong>Customize settings</strong> option is where we will choose how much resources we would like to give to our opnsense router.</p>
+<p>For me I will assigned to following resources:</p>
+<ul>
+<li><strong>CPU</strong> = 2 vCPU</li>
+<li><strong>Memory</strong> = 2GB</li>
+<li><strong>Hard Drive</strong> = 30GB</li>
+<li><strong>Network Adapter 1</strong></li>
+<li><strong>Network Adapter 2</strong></li>
+</ul>
+<p>Since this is a router, it will need two networking adapter. One for the WAN traffic to talk out to the internet and the other for the LAN traffic where my Windows Servers will exist.</p>
+<p>For my adapter settings. I basically create an internal network that is not able to talk to the main network (10.10.10.0/24), instead I want this network to go through the <strong>WAN interface</strong>. </p>
+<p>You can ignore my naming scheme for my network <strong>Prod-Net</strong> is on the 10.10.10.0/24 network and <strong>PGroup19100</strong> is on the 192.168.100.0/24 network. Of course, the name you gave your network makes a lot more sense that mine.</p>
+<p><a href="../images/opnsense_install/create_vm4.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm4.jpg" /></a></p>
+<p>Once you're done with this section you can click <strong>Next</strong> then <strong>Finish</strong></p>
+<p><a href="../images/opnsense_install/create_vm5.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm5.jpg" /></a></p>
+<h2 id="installing-opnsense">Installing OPNsense</h2>
+<p>Okay, so we've just completed creating our Virtual Machine, next up we will need to install opnsense on the Virtual Machine that we've just created.</p>
+<p>In my ESXi host, I'm going to click on my newly create Virtual Machine called: <strong>opnsense-router</strong> and <strong>Start it up</strong></p>
+<p><a href="../images/opnsense_install/install-os1.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os1.jpg" /></a></p>
+<p>You will see a very quick boot screen that gives you about 5 seconds to pause if needed. If your opnsense VM does not boot, you have an issue with the ISO image, try downloading it again maybe trying DVD instead of VGA or another option that it provides. It could also be your Virutal DVD drive is not being detected on your because you did not choose the correct <strong>Guest OS version</strong>.</p>
+<p>If it does boot successfully, you will see a screen like this:</p>
+<p><a href="../images/opnsense_install/install-os2.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os2.jpg" /></a></p>
+<p>You might have noticed that <strong>LAN</strong> is assigned to <strong>VMX0</strong> and <strong>WAN</strong> is assigned to <strong>VMX1</strong>. The <strong>LAN</strong> has an IP address of <strong>192.168.1.1/24</strong> but there is nothing assigned to <strong>WAN</strong>. The reason this happened is because opnsense automatically assigned out interfaces for us, but to worry, we do not need to use the default settings that is applied to us. We can change this and many other settings as we go further. For now, we are going to install OPNSense on our virtual machine. To do that, at the screen we're currently on. If you've took the time to read you notice that it tells you what to do. You can sign into the <strong>live</strong> mode where you can make changes and configure the router but please note that changes made here will not survive a reboot. To ensure that our changes are kept we will need to install it. We do that by typing <strong>installer</strong> as the username and <strong>opnsense</strong> as the password. Once we do that the installation process begins:</p>
+<p>First thing, we need choose a <strong>Keymap Selection</strong> I will go with the default keymap but you can choose the one that works best for you:</p>
+<p><a href="../images/opnsense_install/install-os3.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os3.jpg" /></a></p>
+<p><a href="../images/opnsense_install/install-os4.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os4.jpg" /></a></p>
+<p>Next it will ask me to select the <strong>Virtual Device Type</strong>. Here I will choose <strong>stripe</strong>. I will assigned one hard drive to my opnsense installation so that's all I can do. Since this is just a test lab. I do not need to added security of having a mirror or a different RAID setup in the event of a drive failure. <strong>Stripe</strong> will work in my situation.</p>
+<p><a href="../images/opnsense_install/install-os5.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os5.jpg" /></a></p>
+<p>Next it's going to ask me to confirm which hard drive I will like to install opnsense on. I only have one option so I will press my <strong>spacebar</strong> to select the device then click OK</p>
+<p><a href="../images/opnsense_install/install-os6.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os6.jpg" /></a></p>
+<p>It warns me that the data on the disk is about the get destoryed, since this is a new disk that doesn't contain any data I will say yes.</p>
+<p><a href="../images/opnsense_install/install-os7.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os7.jpg" /></a></p>
+<p>Click yes will begin the installation:</p>
+<p><a href="../images/opnsense_install/install-os8.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os8.jpg" /></a></p>
+<p>If thers is any issues with the hardware you select, this will be where you will see it. It will error out and will stop the installation process. If this happens to you and you're using a physical hardware, ensure that the hardware you're using is compatible with OPNSense. For Virtual Machines, the biggest roadblock here is your hard drive. Ensure you have the correct Hard Drive Controller. For my installation I had <strong>VMWare Paravirtual</strong> selected as my <strong>SCSI Controller 0</strong>. If everything goes well, you will see this screen:</p>
+<p>If you would like to, you can change your root password here but I will complete install and reboot.</p>
+<p><a href="../images/opnsense_install/install-os9.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os9.jpg" /></a></p>
 
 
 

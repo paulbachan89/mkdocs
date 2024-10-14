@@ -24,6 +24,8 @@ I'll briefly go through how the networking is setup. My Gateway is my home route
 
 If you're interested you can see how I setup my opnsense router here.
 
+My Mikrotik router has a few VLANs on it. 10.10.10.0/24 is my main VLAN that all of my personal devices are on, VLAN 1950 with the subnet: 192.168.50.0/24, it a test subnet that I use for testing different servers and devices that I don't want on my main network. Subnet: 192.168.100.0/254 will be the network all of my Windows Devices will exist on.
+
 This is what my networking looks like:
 
 [![Networking Setup](images/Windows_Server_Networking.jpg)](images/Windows_Server_Networking.jpg)
