@@ -46,6 +46,7 @@ nav:
       - Windows Server Projects:
         - Project Goals: HomeLab/Windows_Projects/Project_Goals.md
         - Overview: HomeLab/Windows_Projects/index.md
+        - OPNsense Install: HomeLab/Windows_Projects/opnsense.md
         - Windows Server:
             - Windows Server Installation: HomeLab/Windows_Projects/Windows_Server_Install/WinSrvInstall.md
         - Active Directory:
