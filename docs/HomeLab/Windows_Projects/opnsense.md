@@ -88,3 +88,8 @@ Click yes will begin the installation:
 
 [![Installing OPNsense](images/opnsense_install/install-os8.jpg)](images/opnsense_install/install-os8.jpg)
 
+If thers is any issues with the hardware you select, this will be where you will see it. It will error out and will stop the installation process. If this happens to you and you're using a physical hardware, ensure that the hardware you're using is compatible with OPNSense. For Virtual Machines, the biggest roadblock here is your hard drive. Ensure you have the correct Hard Drive Controller. For my installation I had **VMWare Paravirtual** selected as my **SCSI Controller 0**. If everything goes well, you will see this screen:
+
+If you would like to, you can change your root password here but I will complete install and reboot.
+
+[![Installing OPNsense](images/opnsense_install/install-os9.jpg)](images/opnsense_install/install-os9.jpg)
