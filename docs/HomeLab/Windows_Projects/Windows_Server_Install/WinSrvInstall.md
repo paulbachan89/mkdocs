@@ -22,6 +22,31 @@ I'm planning on making this server my domain controller so I will call it DC-01.
 - **Guest OS family**: Windows
 - **Guest OS Version**: Microsoft Windows Server 2022 (64-bit)
 
+Click Next once you're done:
+
+[![Select creation type](images/create-vm2.jpg)](images/create-vm2.jpg)
+
+Next it will ask me where I would like to storae my virtual machine files. I have a few option but I will choose DS2-1TB and then click next:
+
+[![Select creation type](images/create-vm3.jpg)](images/create-vm3.jpg)
+
+Next it will want me to customize my settings. Here's what I want:
+
+- **CPU** - 4 vCPU
+- **Memory** - 8196MB or 8GB
+- **Hard Disk1** - 90GB
+- **Network Adapter 1** - PGroup19100 - This network is connected to my opnsense LAN.
+- **CD/DVD Drive1** - Select the Windows Server 2022 ISO file.
+
+Once you're done with everything, click **Next**
+
+[![Select creation type](images/create-vm4.jpg)](images/create-vm4.jpg)
+
+Then **Finish**
+
+[![Select creation type](images/create-vm5.jpg)](images/create-vm5.jpg)
+
+
 
 
 
