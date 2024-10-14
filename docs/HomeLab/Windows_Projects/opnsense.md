@@ -212,15 +212,20 @@ For the name server I will use: **1.1.1.1**
 Opnsense will ask you a few questions about configuring the GUI. you can say no to all of these as you won't be logging into the GUI using the **WAN** IP address. OPNsense by default blocks GUI access through the **WAN**
 
 **Configure IPv6 address WAN interface via DHCP6?** - **no**
+
 **Do you want to change the web GUI protocol from https to http?**: **no**
+
 **Do you want to generate a new self-signed web GUI certificate?** : **no**
+
 **Restore web GUI access defaults?** - **no**
 
 [![Installing OPNsense](images/opnsense_install/config-os19.jpg)](images/opnsense_install/config-os19.jpg)
 
 Once again. Opnsense will reload to apply the settings you just configured.
 
+At point this, your opnsense router is fully configured to help be the gateway for the new Windows Server Lab we will build. Once again, this is an optional step. you don't have to do this, as you can just use any free IP address to configure your Windows Servers. 
 
+If you've made it this far. Thank you for reading. Next up we will start to configure out Windows Servers.
 
 
 
