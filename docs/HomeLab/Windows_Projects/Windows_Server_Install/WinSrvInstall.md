@@ -117,7 +117,6 @@ Now that I'm in my operating system. they are a few things I would like to do as
 - Change the Timezone Zone
 - Enable Remote Desktop
 - Change the name
-- Perform Updates
 - Set a Static IP address
 
 Thankfully I can do most of these directly from my Server Manager. I simply click on **Local Server** below **Dashboard** to begin:
@@ -196,3 +195,4 @@ Once I am done it will tell me that I need to reboot to apply the changes and wi
 
 [![Select creation type](images/config-cn6.jpg)](images/config-cn6.jpg)
 
+This is basically how I will be creating all of my Windows Servers. The only things I will change will be the **Computer Name** and the **IP Address**. 
