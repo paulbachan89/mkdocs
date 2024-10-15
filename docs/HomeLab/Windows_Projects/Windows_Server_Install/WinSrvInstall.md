@@ -92,3 +92,107 @@ Once the installation is completed, it will automatically reboot the System with
 
 [![Select creation type](images/install-win10.jpg)](images/install-win10.jpg)
 
+## Windows Server 2022 Initial Configuration
+
+Once Windows Reboot it will ask you to create an Administrator password. Enter and Re-enter your password and click finish.
+
+[![Select creation type](images/install-win11.jpg)](images/install-win11.jpg)
+
+Windows will then then you to the log in screen. Press CTRL+ALT+Delete to bring up the login prompt
+
+[![Select creation type](images/config-win1.jpg)](images/config-win1.jpg)
+
+Enter the password you create to log into Windows
+
+When I logged in, I'm asked if I want my PC to be discoverable by other PCs, since this is a server I will say no. You might or may not get this prompt.
+
+[![Select creation type](images/config-win2.jpg)](images/config-win2.jpg)
+
+Next I am asked if I want to Manage my Windows using Windows Admin Center. I will say **Don't show this message again** and close it
+
+[![Select creation type](images/config-win3.jpg)](images/config-win3.jpg)
+
+Now that I'm in my operating system. they are a few things I would like to do as part of my initial configurations:
+
+- Change the Timezone Zone
+- Enable Remote Desktop
+- Change the name
+- Perform Updates
+- Set a Static IP address
+
+Thankfully I can do most of these directly from my Server Manager. I simply click on **Local Server** below **Dashboard** to begin:
+
+[![Select creation type](images/config-win4.jpg)](images/config-win4.jpg)
+
+First I will change my Timezone, I can click on the link next to **Timezone** to change this. I will select **Eastern Time** as my timezone. 
+
+[![Select creation type](images/config-win5.jpg)](images/config-win5.jpg)
+
+[![Select creation type](images/config-win6.jpg)](images/config-win6.jpg)
+
+[![Select creation type](images/config-win7.jpg)](images/config-win7.jpg)
+
+[![Select creation type](images/config-win8.jpg)](images/config-win8.jpg)
+
+[![Select creation type](images/config-win9.jpg)](images/config-win9.jpg)
+
+[![Select creation type](images/config-win10.jpg)](images/config-win10.jpg)
+
+Next I woud like to configure my IP address. Back inside of Server Manager. My Network adapter is called Ehternet0, so I will click on the link next to it to configure my IP address.
+
+[![Select creation type](images/config-net1.jpg)](images/config-net1.jpg)
+
+I will use the following IP address for this server:
+
+- **IP address**: 192.168.100.20
+- **Subnet Mask**: 255.255.255.0
+- **Gateway**: 192.168.100.254
+- **DNS Server**: 192.168.100.20
+- **DNS Server**: 192.168.100.21
+
+After click on the link, you will be bring to your network connections. Right click on your network adapter and click properties
+
+[![Select creation type](images/config-net2.jpg)](images/config-net2.jpg)
+
+Then I will click on **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**
+
+[![Select creation type](images/config-net3.jpg)](images/config-net3.jpg)
+
+And here I will enter my IP address information
+
+[![Select creation type](images/config-net4.jpg)](images/config-net4.jpg)
+
+Once I'm done, I will click OK then click the Properties of Ethernet0 and lastly, I will close to network connections window.
+
+From here I will Enable Remote Desktop by clicking on the link next to **Remote Desktop** 
+
+**Allow Remote Connections to this computer**
+
+**Allow Connections only from computers running Remote Desktop with Network Level Authentication (recommended)** - I will uncheck this box as I will be remote into my Server through a computer that is not a part of the Domain.
+
+Once I've made from choices I will click **Apply** then **OK**
+
+[![Select creation type](images/config-rdp1.jpg)](images/config-rdp1.jpg)
+
+[![Select creation type](images/config-rdp2.jpg)](images/config-rdp2.jpg)
+
+To change the name of my server I will click on the link next to computer name:
+
+[![Select creation type](images/config-cn1.jpg)](images/config-cn1.jpg)
+
+Then I will click on **Change**
+
+[![Select creation type](images/config-cn2.jpg)](images/config-cn2.jpg)
+
+And enter the name **dc-01** as my computer name. My naming scheme comes from what role my server will fulfill. Since this server will be a First Domain Controller it will be called dc-01.
+
+[![Select creation type](images/config-cn3.jpg)](images/config-cn3.jpg)
+
+Once I am done it will tell me that I need to reboot to apply the changes and will give me to option to reboot now or later. I will reboot now.
+
+[![Select creation type](images/config-cn4.jpg)](images/config-cn4.jpg)
+
+[![Select creation type](images/config-cn5.jpg)](images/config-cn5.jpg)
+
+[![Select creation type](images/config-cn6.jpg)](images/config-cn6.jpg)
+

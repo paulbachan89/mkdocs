@@ -42,8 +42,6 @@ nav:
         - OPNsense Install: HomeLab/Windows_Projects/opnsense.md
         - Windows Server:
             - Windows Server Installation: HomeLab/Windows_Projects/Windows_Server_Install/WinSrvInstall.md
-        - Active Directory:
-            - Welcome: HomeLab/Windows_Projects/Welcome.md
             - DC-01: HomeLab/Windows_Projects/dc01.md
       - Linux Projects:
         - Installing Debian 12: HomeLab/Linux_Projects/Debian_12.md
