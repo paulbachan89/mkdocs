@@ -20,13 +20,6 @@ theme:
     - search.suggest
     - search.highlight
 
-extra_javascript:
-  - js/open-new-tab.js
-
-extra_css:
-  - https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css
-
-
   
 plugins:
   - search

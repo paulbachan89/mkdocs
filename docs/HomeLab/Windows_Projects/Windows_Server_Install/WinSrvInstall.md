@@ -46,11 +46,49 @@ Then **Finish**
 
 [![Select creation type](images/create-vm5.jpg)](images/create-vm5.jpg)
 
+## Installing Windows Server 2022
 
+Once you're done with the creating the virtual machine. It's time to start it up and install Windows Server
 
+[![Select creation type](images/install-win1.jpg)](images/install-win1.jpg)
 
+**Press any key to boot from CD or DVDs**
 
+[![Select creation type](images/install-win2.jpg)](images/install-win2.jpg)
 
+The installation process is fairly simple and straight-forward. First you will be asked the following:
 
+- **Language to Install** - English (United States)
+- **Time and currency format** - English (United States)
+- **Keyboard or input method** - US
 
+[![Select creation type](images/install-win3.jpg)](images/install-win3.jpg)
+
+Click **Install now** to begin the installation
+
+[![Select creation type](images/install-win4.jpg)](images/install-win4.jpg)
+
+On the **Select the operating system you want to install** I will choose Windows Server 2022 Datacenter (Desktop Experience) has a GUI whereas the ones without is only a command prompt.
+
+[![Select creation type](images/install-win5.jpg)](images/install-win5.jpg)
+
+Accept the License terms and agreement and proceed
+
+[![Select creation type](images/install-win6.jpg)](images/install-win6.jpg)
+
+For **Which type of installation do you want?** Choose **Custom: Install Microsoft Server Operating System only (advanced)** to install a fresh copy of Windows Server.
+
+[![Select creation type](images/install-win7.jpg)](images/install-win7.jpg)
+
+Next we're ask **Where do you want to install the operating system?** I only have one drive available so I will click **Next**
+
+[![Select creation type](images/install-win8.jpg)](images/install-win8.jpg)
+
+Click next will begin the installation process
+
+[![Select creation type](images/install-win9.jpg)](images/install-win9.jpg)
+
+Once the installation is completed, it will automatically reboot the System within 10 seconds, you can also, click restart to reboot right away.
+
+[![Select creation type](images/install-win10.jpg)](images/install-win10.jpg)
 
