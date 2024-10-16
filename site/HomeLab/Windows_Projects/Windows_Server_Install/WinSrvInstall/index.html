@@ -14,7 +14,7 @@
         <link rel="prev" href="../../opnsense/">
       
       
-        <link rel="next" href="../../Welcome/">
+        <link rel="next" href="../../dc01/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -47,8 +47,6 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
-    
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -664,81 +662,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#installing-windows-server-2022" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Windows Server 2022
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2022-initial-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2022 Initial Configuration
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_1_5" id="__nav_3_1_5_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    Active Directory
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_1_5">
-            <span class="md-nav__icon md-icon"></span>
-            Active Directory
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Welcome/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Welcome
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -945,6 +890,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#installing-windows-server-2022" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Windows Server 2022
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2022-initial-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2022 Initial Configuration
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -969,6 +932,117 @@
 <h2 id="creating-a-virtual-machine-for-windows-server-2022">Creating a Virtual Machine for Windows Server 2022</h2>
 <p>Click Create/Register VM</p>
 <p><a href="../images/create-vm1.jpg"><img alt="Select creation type" src="../images/create-vm1.jpg" /></a></p>
+<p>Select <strong>Create a new virtual machine</strong> and then click <strong>NEXT</strong></p>
+<p><strong>Select a name and guest OS</strong></p>
+<p>I'm planning on making this server my domain controller so I will call it DC-01. The rest of the details are as follows:</p>
+<ul>
+<li><strong>Compatibility</strong>: ESXi 8.0 U2 virtual machine</li>
+<li><strong>Guest OS family</strong>: Windows</li>
+<li><strong>Guest OS Version</strong>: Microsoft Windows Server 2022 (64-bit)</li>
+</ul>
+<p>Click Next once you're done:</p>
+<p><a href="../images/create-vm2.jpg"><img alt="Select creation type" src="../images/create-vm2.jpg" /></a></p>
+<p>Next it will ask me where I would like to storae my virtual machine files. I have a few option but I will choose DS2-1TB and then click next:</p>
+<p><a href="../images/create-vm3.jpg"><img alt="Select creation type" src="../images/create-vm3.jpg" /></a></p>
+<p>Next it will want me to customize my settings. Here's what I want:</p>
+<ul>
+<li><strong>CPU</strong> - 4 vCPU</li>
+<li><strong>Memory</strong> - 8196MB or 8GB</li>
+<li><strong>Hard Disk1</strong> - 90GB</li>
+<li><strong>Network Adapter 1</strong> - PGroup19100 - This network is connected to my opnsense LAN.</li>
+<li><strong>CD/DVD Drive1</strong> - Select the Windows Server 2022 ISO file.</li>
+</ul>
+<p>Once you're done with everything, click <strong>Next</strong></p>
+<p><a href="../images/create-vm4.jpg"><img alt="Select creation type" src="../images/create-vm4.jpg" /></a></p>
+<p>Then <strong>Finish</strong></p>
+<p><a href="../images/create-vm5.jpg"><img alt="Select creation type" src="../images/create-vm5.jpg" /></a></p>
+<h2 id="installing-windows-server-2022">Installing Windows Server 2022</h2>
+<p>Once you're done with the creating the virtual machine. It's time to start it up and install Windows Server</p>
+<p><a href="../images/install-win1.jpg"><img alt="Select creation type" src="../images/install-win1.jpg" /></a></p>
+<p><strong>Press any key to boot from CD or DVDs</strong></p>
+<p><a href="../images/install-win2.jpg"><img alt="Select creation type" src="../images/install-win2.jpg" /></a></p>
+<p>The installation process is fairly simple and straight-forward. First you will be asked the following:</p>
+<ul>
+<li><strong>Language to Install</strong> - English (United States)</li>
+<li><strong>Time and currency format</strong> - English (United States)</li>
+<li><strong>Keyboard or input method</strong> - US</li>
+</ul>
+<p><a href="../images/install-win3.jpg"><img alt="Select creation type" src="../images/install-win3.jpg" /></a></p>
+<p>Click <strong>Install now</strong> to begin the installation</p>
+<p><a href="../images/install-win4.jpg"><img alt="Select creation type" src="../images/install-win4.jpg" /></a></p>
+<p>On the <strong>Select the operating system you want to install</strong> I will choose Windows Server 2022 Datacenter (Desktop Experience) has a GUI whereas the ones without is only a command prompt.</p>
+<p><a href="../images/install-win5.jpg"><img alt="Select creation type" src="../images/install-win5.jpg" /></a></p>
+<p>Accept the License terms and agreement and proceed</p>
+<p><a href="../images/install-win6.jpg"><img alt="Select creation type" src="../images/install-win6.jpg" /></a></p>
+<p>For <strong>Which type of installation do you want?</strong> Choose <strong>Custom: Install Microsoft Server Operating System only (advanced)</strong> to install a fresh copy of Windows Server.</p>
+<p><a href="../images/install-win7.jpg"><img alt="Select creation type" src="../images/install-win7.jpg" /></a></p>
+<p>Next we're ask <strong>Where do you want to install the operating system?</strong> I only have one drive available so I will click <strong>Next</strong></p>
+<p><a href="../images/install-win8.jpg"><img alt="Select creation type" src="../images/install-win8.jpg" /></a></p>
+<p>Click next will begin the installation process</p>
+<p><a href="../images/install-win9.jpg"><img alt="Select creation type" src="../images/install-win9.jpg" /></a></p>
+<p>Once the installation is completed, it will automatically reboot the System within 10 seconds, you can also, click restart to reboot right away.</p>
+<p><a href="../images/install-win10.jpg"><img alt="Select creation type" src="../images/install-win10.jpg" /></a></p>
+<h2 id="windows-server-2022-initial-configuration">Windows Server 2022 Initial Configuration</h2>
+<p>Once Windows Reboot it will ask you to create an Administrator password. Enter and Re-enter your password and click finish.</p>
+<p><a href="../images/install-win11.jpg"><img alt="Select creation type" src="../images/install-win11.jpg" /></a></p>
+<p>Windows will then then you to the log in screen. Press CTRL+ALT+Delete to bring up the login prompt</p>
+<p><a href="../images/config-win1.jpg"><img alt="Select creation type" src="../images/config-win1.jpg" /></a></p>
+<p>Enter the password you create to log into Windows</p>
+<p>When I logged in, I'm asked if I want my PC to be discoverable by other PCs, since this is a server I will say no. You might or may not get this prompt.</p>
+<p><a href="../images/config-win2.jpg"><img alt="Select creation type" src="../images/config-win2.jpg" /></a></p>
+<p>Next I am asked if I want to Manage my Windows using Windows Admin Center. I will say <strong>Don't show this message again</strong> and close it</p>
+<p><a href="../images/config-win3.jpg"><img alt="Select creation type" src="../images/config-win3.jpg" /></a></p>
+<p>Now that I'm in my operating system. they are a few things I would like to do as part of my initial configurations:</p>
+<ul>
+<li>Change the Timezone Zone</li>
+<li>Enable Remote Desktop</li>
+<li>Change the name</li>
+<li>Set a Static IP address</li>
+</ul>
+<p>Thankfully I can do most of these directly from my Server Manager. I simply click on <strong>Local Server</strong> below <strong>Dashboard</strong> to begin:</p>
+<p><a href="../images/config-win4.jpg"><img alt="Select creation type" src="../images/config-win4.jpg" /></a></p>
+<p>First I will change my Timezone, I can click on the link next to <strong>Timezone</strong> to change this. I will select <strong>Eastern Time</strong> as my timezone. </p>
+<p><a href="../images/config-win5.jpg"><img alt="Select creation type" src="../images/config-win5.jpg" /></a></p>
+<p><a href="../images/config-win6.jpg"><img alt="Select creation type" src="../images/config-win6.jpg" /></a></p>
+<p><a href="../images/config-win7.jpg"><img alt="Select creation type" src="../images/config-win7.jpg" /></a></p>
+<p><a href="../images/config-win8.jpg"><img alt="Select creation type" src="../images/config-win8.jpg" /></a></p>
+<p><a href="../images/config-win9.jpg"><img alt="Select creation type" src="../images/config-win9.jpg" /></a></p>
+<p><a href="../images/config-win10.jpg"><img alt="Select creation type" src="../images/config-win10.jpg" /></a></p>
+<p>Next I woud like to configure my IP address. Back inside of Server Manager. My Network adapter is called Ehternet0, so I will click on the link next to it to configure my IP address.</p>
+<p><a href="../images/config-net1.jpg"><img alt="Select creation type" src="../images/config-net1.jpg" /></a></p>
+<p>I will use the following IP address for this server:</p>
+<ul>
+<li><strong>IP address</strong>: 192.168.100.20</li>
+<li><strong>Subnet Mask</strong>: 255.255.255.0</li>
+<li><strong>Gateway</strong>: 192.168.100.254</li>
+<li><strong>DNS Server</strong>: 192.168.100.20</li>
+<li><strong>DNS Server</strong>: 192.168.100.21</li>
+</ul>
+<p>After click on the link, you will be bring to your network connections. Right click on your network adapter and click properties</p>
+<p><a href="../images/config-net2.jpg"><img alt="Select creation type" src="../images/config-net2.jpg" /></a></p>
+<p>Then I will click on <strong>Internet Protocol Version 4 (TCP/IPv4)</strong> and click <strong>Properties</strong></p>
+<p><a href="../images/config-net3.jpg"><img alt="Select creation type" src="../images/config-net3.jpg" /></a></p>
+<p>And here I will enter my IP address information</p>
+<p><a href="../images/config-net4.jpg"><img alt="Select creation type" src="../images/config-net4.jpg" /></a></p>
+<p>Once I'm done, I will click OK then click the Properties of Ethernet0 and lastly, I will close to network connections window.</p>
+<p>From here I will Enable Remote Desktop by clicking on the link next to <strong>Remote Desktop</strong> </p>
+<p><strong>Allow Remote Connections to this computer</strong></p>
+<p><strong>Allow Connections only from computers running Remote Desktop with Network Level Authentication (recommended)</strong> - I will uncheck this box as I will be remote into my Server through a computer that is not a part of the Domain.</p>
+<p>Once I've made from choices I will click <strong>Apply</strong> then <strong>OK</strong></p>
+<p><a href="../images/config-rdp1.jpg"><img alt="Select creation type" src="../images/config-rdp1.jpg" /></a></p>
+<p><a href="../images/config-rdp2.jpg"><img alt="Select creation type" src="../images/config-rdp2.jpg" /></a></p>
+<p>To change the name of my server I will click on the link next to computer name:</p>
+<p><a href="../images/config-cn1.jpg"><img alt="Select creation type" src="../images/config-cn1.jpg" /></a></p>
+<p>Then I will click on <strong>Change</strong></p>
+<p><a href="../images/config-cn2.jpg"><img alt="Select creation type" src="../images/config-cn2.jpg" /></a></p>
+<p>And enter the name <strong>dc-01</strong> as my computer name. My naming scheme comes from what role my server will fulfill. Since this server will be a First Domain Controller it will be called dc-01.</p>
+<p><a href="../images/config-cn3.jpg"><img alt="Select creation type" src="../images/config-cn3.jpg" /></a></p>
+<p>Once I am done it will tell me that I need to reboot to apply the changes and will give me to option to reboot now or later. I will reboot now.</p>
+<p><a href="../images/config-cn4.jpg"><img alt="Select creation type" src="../images/config-cn4.jpg" /></a></p>
+<p><a href="../images/config-cn5.jpg"><img alt="Select creation type" src="../images/config-cn5.jpg" /></a></p>
+<p><a href="../images/config-cn6.jpg"><img alt="Select creation type" src="../images/config-cn6.jpg" /></a></p>
+<p>This is basically how I will be creating all of my Windows Servers. The only things I will change will be the <strong>Computer Name</strong> and the <strong>IP Address</strong>. </p>
+<p>My next step will be to install the <strong>Active Directory</strong> Role on my new DC-01 Server.</p>
 
 
 
@@ -1027,8 +1101,6 @@
     
     
       <script src="../../../../assets/javascripts/bundle.525ec568.min.js"></script>
-      
-        <script src="../../../../js/open-new-tab.js"></script>
       
     
   </body>

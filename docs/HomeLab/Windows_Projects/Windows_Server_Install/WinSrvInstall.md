@@ -1,6 +1,6 @@
 ## Windows Server Installation
 
-Welcome to your first hands-on experience with Windows Server if you've never used it before. Here I will be going through the installation process with you to get an idea as to what to look for. We will be installation Windows Server 2022 as it's currently the one I'm most comfortable with. I will going a blog write up of Windows Server 2025 when time permits.
+Welcome to your first hands-on experience with Windows Server if you've never used it before. Here I will be going through the installation process with you to get an idea as to what to look for. We will be installation Windows Server 2022 as it's currently the one I'm most comfortable with. I will going a blog write up of Windows Server 2025 when time permits. 
 
 First things first. Let's grab a copy of Windows Server 2022. You can find that here: [Download Windows Server 2022](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022)
 
@@ -68,7 +68,7 @@ Click **Install now** to begin the installation
 
 [![Select creation type](images/install-win4.jpg)](images/install-win4.jpg)
 
-On the **Select the operating system you want to install** I will choose Windows Server 2022 Datacenter (Desktop Experience) has a GUI whereas the ones without is only a command prompt.
+On the **Select the operating system you want to install** I will choose Windows Server 2022 Datacenter (Desktop Experience) has a GUI whereas **Windows Server 2022 Standard** and **Windows Server 2022 Datacenter** will install the server core version of Windows Server. **NOTE: If you install Server Core you cannot enable the GUI experience, you will have to reinstall Windows**
 
 [![Select creation type](images/install-win5.jpg)](images/install-win5.jpg)
 
@@ -195,4 +195,8 @@ Once I am done it will tell me that I need to reboot to apply the changes and wi
 
 [![Select creation type](images/config-cn6.jpg)](images/config-cn6.jpg)
 
-This is basically how I will be creating all of my Windows Servers. The only things I will change will be the **Computer Name** and the **IP Address**. 
+This is basically how I will be creating all of my Windows Servers. Usually in my production environment I will have a License key to use but since I'm doing this in my homelab that will be blown away after I'm done, it's not currently needed. The only things I will change will be the **Computer Name** and the **IP Address**. 
+
+Installing the Windows Server operating system is really just to first step. Currently you just have a Computer, it currently doesn't server an purpose but we will change that when we start adding different roles and features to our Servers.
+
+My next step will be to install the **Active Directory** Role on my new DC-01 Server.
