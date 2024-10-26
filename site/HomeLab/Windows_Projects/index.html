@@ -1,0 +1,1493 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://infotechtutorials.ca/HomeLab/Windows_Projects/">
+      
+      
+        <link rel="prev" href="Project_Goals/">
+      
+      
+        <link rel="next" href="opnsense/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>Overview - InfoTechTutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#welcome-to-the-world-of-windows-server" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="InfoTechTutorials" class="md-header__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            InfoTechTutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="Project_Goals/" class="md-tabs__link">
+          
+  
+  Homelab Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="InfoTechTutorials" class="md-nav__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    InfoTechTutorials
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/posts/firstp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Homelab Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Homelab Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Project_Goals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Goals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#key-characteristics-of-windows-server-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics of Windows Server OS:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability-and-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalability and Performance:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#management-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Management Tools:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-virtualization-and-cloud-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      - Virtualization and Cloud Integration:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-editions-windows-server-is-released-in-different-editions-to-cater-to-businesses-of-various-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Different Editions: Windows Server is released in different editions to cater to businesses of various sizes:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Use Cases:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-history-of-windows-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      The History of Windows Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The History of Windows Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-nt-31-advanced-server-1993" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows NT 3.1 Advanced Server (1993)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-nt-35-server-1994" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows NT 3.5 Server (1994)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-nt-40-server-1996" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows NT 4.0 Server (1996)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-2000-server-2000" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows 2000 Server (2000)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2003-2003" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2003 (2003)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2008-2008" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2008 (2008)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2008-r2-2009" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2008 R2 (2009)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2012-2012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2012 (2012)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2012-r2-2013" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2012 R2 (2013)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2016-2016" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2016 (2016)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2019-2018" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2019 (2018)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2022-2021" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2022 (2021)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="opnsense/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OPNsense Install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_4" id="__nav_3_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Windows_Server_Install/WinSrvInstall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows Server Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dc-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DC-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="dc-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DC-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="DNS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Linux Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linux Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux_Projects/Debian_12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Debian 12
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux_Projects/dhcp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DHCP Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#key-characteristics-of-windows-server-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics of Windows Server OS:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scalability-and-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scalability and Performance:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#management-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Management Tools:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-virtualization-and-cloud-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      - Virtualization and Cloud Integration:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#different-editions-windows-server-is-released-in-different-editions-to-cater-to-businesses-of-various-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Different Editions: Windows Server is released in different editions to cater to businesses of various sizes:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Use Cases:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-history-of-windows-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      The History of Windows Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The History of Windows Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-nt-31-advanced-server-1993" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows NT 3.1 Advanced Server (1993)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-nt-35-server-1994" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows NT 3.5 Server (1994)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-nt-40-server-1996" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows NT 4.0 Server (1996)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-2000-server-2000" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows 2000 Server (2000)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2003-2003" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2003 (2003)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2008-2008" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2008 (2008)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2008-r2-2009" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2008 R2 (2009)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2012-2012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2012 (2012)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2012-r2-2013" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2012 R2 (2013)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2016-2016" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2016 (2016)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2019-2018" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2019 (2018)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-server-2022-2021" class="md-nav__link">
+    <span class="md-ellipsis">
+      Windows Server 2022 (2021)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="welcome-to-the-world-of-windows-server">Welcome to the World of Windows Server</h1>
+<p>If you've been a using Windows as your main desktop for a long time you might have at some point come across the term <strong>Windows Server</strong>. If you didn't bother looking it up at the time I will tell you now. <strong>Windows Server</strong> is an operation system that is feature rich and is specifically designed to provide servers in networking, storage, authentication and users.</p>
+<p>Windows Server OS plays a crucial role in managing the back-end infrastructure of companies, providing server-based computing solutions for file storage, email services, web hosting, and more.</p>
+<h2 id="key-characteristics-of-windows-server-os">Key Characteristics of Windows Server OS:</h2>
+<p><strong>Server Roles and Services:</strong></p>
+<ul>
+<li>Active Directory (AD): A directory service used for managing domain-based networks. It helps in organizing users, computers, and other resources into a centralized system.</li>
+<li>DNS (Domain Name System): Provides hostname resolution services, converting domain names to IP addresses and vice versa.</li>
+<li>DHCP (Dynamic Host Configuration Protocol): Dynamically assigns IP addresses to devices on a network, simplifying network management.</li>
+<li>File and Storage Services: Manages file sharing and storage across a network, including features like Distributed File System (DFS) for sharing across multiple servers.</li>
+<li>Web Hosting (IIS - Internet Information Services): Hosts websites and web applications. IIS is Microsoft’s web server role included in Windows Server.</li>
+<li>Hyper-V: Windows Server's virtualization platform, allowing users to create and manage virtual machines (VMs).</li>
+</ul>
+<h2 id="scalability-and-performance">Scalability and Performance:</h2>
+<ul>
+<li>High Performance: Windows Server OS is built to support enterprise-level workloads, with support for thousands of users, large amounts of memory (RAM), and multiple processors.</li>
+<li>Cluster Support: Provides failover clustering for high availability, allowing servers to remain online even if individual components fail.</li>
+</ul>
+<h2 id="security">Security:</h2>
+<ul>
+<li>Advanced Threat Protection: Built-in tools like Windows Defender Advanced Threat Protection (ATP) protect against malware, ransomware, and other security threats.</li>
+<li>Firewall and Network Protection: Configurable firewalls and network isolation features to protect servers from unauthorized access.</li>
+<li>Just Enough Administration (JEA) and Just-in-Time Administration (JIT): Role-based access controls to limit who can perform certain administrative tasks.</li>
+</ul>
+<h2 id="management-tools">Management Tools:</h2>
+<ul>
+<li>Windows Admin Center: A modern, browser-based management tool for managing multiple servers, clusters, and hyper-converged infrastructure (HCI).</li>
+<li>PowerShell: A command-line and scripting tool that allows for automation and management of server configurations and operations.</li>
+<li>Group Policy: Allows centralized management of users and computers in a network, controlling security settings, software installations, and more.</li>
+</ul>
+<h2 id="-virtualization-and-cloud-integration">- Virtualization and Cloud Integration:</h2>
+<ul>
+<li>Hyper-V: As a built-in hypervisor, Hyper-V allows you to run virtual machines and containers efficiently. It is essential for consolidating hardware and running multiple environments on a single physical server.</li>
+<li>Hybrid Cloud Support: Integration with Microsoft Azure services, allowing for hybrid cloud setups, where parts of the infrastructure are hosted in the cloud while others remain on-premises.</li>
+</ul>
+<h2 id="different-editions-windows-server-is-released-in-different-editions-to-cater-to-businesses-of-various-sizes">Different Editions: Windows Server is released in different editions to cater to businesses of various sizes:</h2>
+<ul>
+<li>Standard Edition: Suited for small to medium-sized businesses that require basic features like file sharing, application hosting, and virtualization (limited to two virtual machines).</li>
+<li>Datacenter Edition: Designed for larger enterprises with heavy virtualization and cloud integration needs, allowing unlimited virtual machines.</li>
+<li>Essentials Edition: Targeted at small businesses with fewer users (up to 25 users and 50 devices), offering simplified management and limited features.</li>
+</ul>
+<h2 id="common-use-cases">Common Use Cases:</h2>
+<ul>
+<li>Domain Controller: Hosts Active Directory, managing authentication and authorization across a network.</li>
+<li>File Server: Provides centralized storage for users and systems in an organization, facilitating file sharing and backup.</li>
+<li>Web and Application Hosting: Hosts websites, web applications, and databases.</li>
+<li>Virtualization: Manages virtual machines using Hyper-V to run multiple operating systems on the same hardware.</li>
+<li>Email and Collaboration: Provides back-end services like email hosting (Exchange Server) and collaboration tools (SharePoint).</li>
+<li>Hybrid Cloud Services: Integrates on-premise servers with cloud services using Azure.</li>
+</ul>
+<h2 id="the-history-of-windows-server"><strong>The History of Windows Server</strong></h2>
+<h3 id="windows-nt-31-advanced-server-1993">Windows NT 3.1 Advanced Server (1993)</h3>
+<p><strong>Overview</strong>: Microsoft's first true server operating system. It was based on the Windows NT (New Technology) platform and marked Microsoft’s entry into the server market.</p>
+<p><strong>Key Features</strong>: Focused on file, print, and application services with basic networking capabilities. It was designed to work in small networks.</p>
+<h2 id="windows-nt-35-server-1994">Windows NT 3.5 Server (1994)</h2>
+<p><strong>Overview</strong>: This version improved upon NT 3.1, focusing on better performance, networking, and security.</p>
+<p><strong>Key Features</strong>: Introduction of support for domain controllers, NTFS file system enhancements, and better networking features.</p>
+<h2 id="windows-nt-40-server-1996">Windows NT 4.0 Server (1996)</h2>
+<p><strong>Overview</strong>: A significant update with a user interface similar to Windows 95, bringing a more user-friendly experience to server environments.</p>
+<p><strong>Key Features</strong>: Active Directory wasn’t yet introduced, but it provided better networking capabilities, including DHCP, DNS, and WINS services. This version is often credited with helping Microsoft gain a stronger foothold in the server market.</p>
+<h2 id="windows-2000-server-2000">Windows 2000 Server (2000)</h2>
+<p><strong>Overview</strong>: A major shift for Microsoft servers, this version introduced the Active Directory service, which allowed centralized domain management and became a cornerstone of network administration.</p>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>Active Directory for domain services</li>
+<li>Distributed File System (DFS) and the File Replication Service (FRS)</li>
+<li>Enhanced security features</li>
+<li>Support for up to 32 processors and 64 GB of RAM</li>
+</ul>
+<h2 id="windows-server-2003-2003">Windows Server 2003 (2003)</h2>
+<p><strong>Overview</strong>: The first server OS to officially carry the “Windows Server” branding, based on the Windows XP codebase.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Improved Active Directory</li>
+<li>New Volume Shadow Copy feature for backups</li>
+<li>Better scalability and performance</li>
+<li>Windows Server Update Services (WSUS) for automatic updates</li>
+<li>Roles and features like DNS, DHCP, IIS (Internet Information Services) were easier to manage</li>
+<li>
+<p>There were several editions of Windows Server 2003:</p>
+</li>
+<li>
+<p>Web Edition (for hosting websites and web applications)</p>
+</li>
+<li>Standard Edition (for small to medium-sized businesses)</li>
+<li>Enterprise Edition (for larger businesses with high availability needs)</li>
+<li>Datacenter Edition (for large-scale enterprise environments)</li>
+</ul>
+<h2 id="windows-server-2008-2008">Windows Server 2008 (2008)</h2>
+<p><strong>Overview</strong>: Built on the same codebase as Windows Vista, Windows Server 2008 introduced several new management and virtualization features.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Server Core: A minimal installation option without the GUI, reducing the attack surface</li>
+<li>Introduction of Hyper-V for virtualization</li>
+<li>PowerShell for command-line automation</li>
+<li>Network Access Protection (NAP) to enforce health policies</li>
+<li>Failover Clustering for high availability</li>
+<li>Enhanced Active Directory roles like AD Federation Services</li>
+</ul>
+<h2 id="windows-server-2008-r2-2009">Windows Server 2008 R2 (2009)</h2>
+<p><strong>Overview</strong>: A significant update to Server 2008, built on the same core as Windows 7.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Live Migration with Hyper-V for seamless virtual machine transfers</li>
+<li>DirectAccess for seamless remote access without VPNs</li>
+<li>BranchCache to improve access to remote files</li>
+<li>Scalability improvements and better power management</li>
+</ul>
+<h2 id="windows-server-2012-2012">Windows Server 2012 (2012)</h2>
+<p><strong>Overview</strong>: This version introduced a major shift in server management with a greater focus on cloud integration and virtualization.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Hyper-V 3.0: Enhanced capabilities for virtualization and storage management</li>
+<li>Storage Spaces for creating virtual storage pools</li>
+<li>Resilient File System (ReFS) for improved data integrity</li>
+<li>Dynamic Access Control for better control over file access</li>
+<li>PowerShell 3.0 for advanced automation and management</li>
+<li>Emphasis on Server Core and Minimal Interface for headless management</li>
+</ul>
+<h2 id="windows-server-2012-r2-2013">Windows Server 2012 R2 (2013)</h2>
+<p><strong>Overview</strong>: An iterative improvement over Windows Server 2012, adding further cloud integration and refinements.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Enhanced Hyper-V features, including Generation 2 VMs</li>
+<li>Improved storage features like Storage Tiering and Deduplication</li>
+<li>Enhanced PowerShell with additional cmdlets</li>
+<li>Integration with Microsoft Azure for hybrid cloud scenarios</li>
+</ul>
+<h2 id="windows-server-2016-2016">Windows Server 2016 (2016)</h2>
+<p><strong>Overview</strong>: This version was designed to support hybrid cloud environments and introduced several new features aimed at improving security, containers, and virtualization.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Nano Server: A lightweight installation option for cloud and containerized workloads</li>
+<li>Windows Containers and Hyper-V Containers for containerization</li>
+<li>Shielded VMs for enhanced security in virtualized environments</li>
+<li>Storage Spaces Direct for hyper-converged infrastructure</li>
+<li>Just Enough Administration (JEA) and Just-In-Time Administration (JIT) for better access control</li>
+</ul>
+<h2 id="windows-server-2019-2018">Windows Server 2019 (2018)</h2>
+<p><strong>Overview</strong>: A continuation of Microsoft’s focus on hybrid cloud environments, Windows Server 2019 included deeper integration with Azure.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Windows Admin Center for centralized management of on-premise and Azure services</li>
+<li>Improved Hyper-Converged Infrastructure (HCI)</li>
+<li>Azure Network Adapter for simplified cloud connectivity</li>
+<li>Windows Defender Advanced Threat Protection (ATP)</li>
+<li>Kubernetes support for Windows containers</li>
+</ul>
+<h2 id="windows-server-2022-2021">Windows Server 2022 (2021)</h2>
+<p><strong>Overview</strong>: The latest release as of 2021, Windows Server 2022 brings in enhanced security and cloud-native hybrid capabilities, with further refinements in containerization, storage, and networking.</p>
+<p><strong>Key Features</strong>:</p>
+<ul>
+<li>Secured-Core Server for advanced security features</li>
+<li>TLS 1.3 by default for better security in network communications</li>
+<li>Hotpatching for applying security patches without rebooting in Azure environments</li>
+<li>Azure Arc for managing on-premise and multi-cloud servers</li>
+<li>Better container support for Windows Containers and improved performance</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>

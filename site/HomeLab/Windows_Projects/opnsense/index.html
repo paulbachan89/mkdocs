@@ -1,0 +1,1142 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://infotechtutorials.ca/HomeLab/Windows_Projects/opnsense/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../Windows_Server_Install/WinSrvInstall/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>OPNsense Install - InfoTechTutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#opnsense-router-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="InfoTechTutorials" class="md-header__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            InfoTechTutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OPNsense Install
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/" class="md-tabs__link">
+          
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Project_Goals/" class="md-tabs__link">
+          
+  
+  Homelab Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="InfoTechTutorials" class="md-nav__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    InfoTechTutorials
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/posts/firstp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Homelab Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Homelab Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Project_Goals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Goals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    OPNsense Install
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    OPNsense Install
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opnsense-router-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      OPNSense Router Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing OPNsense
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring OPNSense
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_4" id="__nav_3_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows_Server_Install/WinSrvInstall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows Server Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dc-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DC-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dc-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DC-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DNS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Linux Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linux Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux_Projects/Debian_12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Debian 12
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux_Projects/dhcp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DHCP Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opnsense-router-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      OPNSense Router Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing OPNsense
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-opnsense" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuring OPNSense
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>OPNsense Install</h1>
+
+<h2 id="opnsense-router-setup">OPNSense Router Setup</h2>
+<p>This is an optional step if you're following allowing. The goal behind this router is to give me my own seperate subnet for me to play with, without having to worry about conflicting IP addresses or an IP address that I would like to use but is already in use. The opnsense router is a simple setup except for a some Firewall Rules that will allow me to communication with my main subnet.</p>
+<p>First thing we'll want to do is to download the ISO for opnsense. It can be found here: </p>
+<p><a href="https://opnsense.org/download/">Download OPNSense</a></p>
+<p>Perfect. I'm going to be uploading the OPNSense ISO File to my VMware ESXi Storage repository. Depending on where you are performing your installation, you'll need to ensure that your Virtual Machine is able to access the ISO since you'll need to mount it.</p>
+<p>First thing I will do will be to create my Virtual Machine for OPNSense</p>
+<p>In ESXi, I click <strong>Create/Register VM</strong> and then at the <strong>Select creation type</strong> I choose <strong>Create a new virtual Machine</strong></p>
+<p><a href="../images/opnsense_install/Create_VM1.jpg"><img alt="Select creation type" src="../images/opnsense_install/Create_VM1.jpg" /></a></p>
+<p>Next we will need to <strong>Select a name and Guest OS</strong>. I will choose the easy name and just call it <strong>opnsense-router</strong> for the guest OS I want to ensure that I choose the following:</p>
+<ul>
+<li><strong>Compatibilty</strong> - ESXi 8.0 U2 virtual machine</li>
+<li><strong>Guest OS family</strong> - Other</li>
+<li><strong>Guest OS version</strong> - FreeBSD 14 or later versions (64-bit)</li>
+</ul>
+<p>The <strong>Guest OS version</strong> is important here because if you choose something else, your opnsense vm or installation might not go through because of the different driver options.</p>
+<p><a href="../images/opnsense_install/create_vm2.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm2.jpg" /></a></p>
+<p><strong>Select storage</strong> is the next option. I have a few different hard drives to choose from so I'll just choose: <strong>DS1-1TB</strong></p>
+<p><a href="../images/opnsense_install/create_vm3.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm3.jpg" /></a></p>
+<p>Here is the more important settings to choose. The <strong>Customize settings</strong> option is where we will choose how much resources we would like to give to our opnsense router.</p>
+<p>For me I will assigned to following resources:</p>
+<ul>
+<li><strong>CPU</strong> = 2 vCPU</li>
+<li><strong>Memory</strong> = 2GB</li>
+<li><strong>Hard Drive</strong> = 30GB</li>
+<li><strong>Network Adapter 1</strong></li>
+<li><strong>Network Adapter 2</strong></li>
+</ul>
+<p>Since this is a router, it will need two networking adapter. One for the WAN traffic to talk out to the internet and the other for the LAN traffic where my Windows Servers will exist.</p>
+<p>For my adapter settings. I'll basically create an internal network that is not able to talk to the main network (192.168.50.0/24 and 10.10.10.0/24), instead I want this network to go through the <strong>WAN interface</strong>. </p>
+<p>You can ignore my naming scheme for my network <strong>PGroup1950</strong> is on the 192.168.50.0/24 network and <strong>PGroup19100</strong> is on the 192.168.100.0/24 network. Of course, the name you gave your network makes a lot more sense that mine.</p>
+<p><a href="../images/opnsense_install/create_vm4.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm4.jpg" /></a></p>
+<p>Once you're done with this section you can click <strong>Next</strong> then <strong>Finish</strong></p>
+<p><a href="../images/opnsense_install/create_vm5.jpg"><img alt="Select a name and guest OS" src="../images/opnsense_install/create_vm5.jpg" /></a></p>
+<h2 id="installing-opnsense">Installing OPNsense</h2>
+<p>Okay, so we've just completed the creation our Virtual Machine, next up we will need to install opnsense on the Virtual Machine that we've just created.</p>
+<p>In my ESXi host, I'm going to click on my newly create Virtual Machine called: <strong>opnsense-router</strong> and <strong>Start it up</strong></p>
+<p><a href="../images/opnsense_install/install-os1.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os1.jpg" /></a></p>
+<p>You will see a very quick boot screen that gives you about 5 seconds to pause if needed. If your opnsense VM does not boot, there might be an issue with the ISO image, try downloading it again maybe trying DVD instead of VGA or another option that it provides. It could also be your Virutal DVD drive is not being detected on your because you did not choose the correct <strong>Guest OS version</strong>.</p>
+<p>If it does boot successfully, you will see a screen like this:</p>
+<p><a href="../images/opnsense_install/install-os2.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os2.jpg" /></a></p>
+<p>You might have noticed that OPNSense automatically assigned your <strong>WAN</strong> and <strong>LAN</strong> interfaces. Thankfully OPNSense assigned my interfaces correctly. My <strong>WAN</strong> interface was able to grab an IP address from my Mikrotik Router and my <strong>LAN</strong> interface received the default networking scheme that's created by opnsense.
+If your <strong>WAN</strong> interface does not have an IP address, this could be because opnsense incorrectly assigned your interfaces and they need to be swapped. You can swapped these after the installation since you're in a live environment and the changes you make here will not remain after a reboot.</p>
+<p>To Begin the installation, type <strong>installer</strong> as the username and <strong>opnsense</strong> as the password to begin the installation process.</p>
+<p>First thing, we need choose a <strong>Keymap Selection</strong> I will go with the default keymap but you can choose the one that works best for you:</p>
+<p><a href="../images/opnsense_install/install-os3.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os3.jpg" /></a></p>
+<p>I'll choose <strong>ZFS</strong> as my filesystem here but you can any other of the options</p>
+<p><a href="../images/opnsense_install/install-os4.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os4.jpg" /></a></p>
+<p>Next it will ask me to select the <strong>Virtual Device Type</strong>. Here I will choose <strong>stripe</strong>. I will assigned one hard drive to my opnsense installation so that's all I can do. Since this is just a test lab. I do not need to added security of having a mirror or a different RAID setup in the event of a drive failure. <strong>Stripe</strong> will work in my situation.</p>
+<p><a href="../images/opnsense_install/install-os5.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os5.jpg" /></a></p>
+<p>Next it's going to ask me to confirm which hard drive I will like to install opnsense on. I only have one option so I will press my <strong>spacebar</strong> to select the device then click OK</p>
+<p><a href="../images/opnsense_install/install-os6.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os6.jpg" /></a></p>
+<p>It warns me that the data on the disk is about the get destroyed, since this is a new disk that doesn't contain any data I will say yes.</p>
+<p><a href="../images/opnsense_install/install-os7.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os7.jpg" /></a></p>
+<p>Select <strong>Yes</strong> to begin the installation:</p>
+<p><a href="../images/opnsense_install/install-os8.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os8.jpg" /></a></p>
+<p>If thers is any issues with the hardware you've selected, this will be where you will see it. It will error out and will stop the installation process. If this happens to you and you're using physical hardware, ensure that the hardware you're using is compatible with OPNSense. For Virtual Machines, the biggest roadblock here is your hard drive. Ensure you have the correct Hard Drive Controller. For my installation I had <strong>VMWare Paravirtual</strong> selected as my <strong>SCSI Controller 0</strong>. If everything goes well, you will see this screen:</p>
+<p>If you would like to, you can change your root password here but I will complete install and reboot since I will be changing the root password when I log into the web portal.</p>
+<p><a href="../images/opnsense_install/install-os9.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/install-os9.jpg" /></a></p>
+<h2 id="configuring-opnsense">Configuring OPNSense</h2>
+<p>Once your opnsense system is back online, you will be back to the main screen. However, this time it's not longer a live enviroment. And any change you make here will still exist after rebooting.</p>
+<p><a href="../images/opnsense_install/config-os1.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os1.jpg" /></a></p>
+<p>Let's start configuring our OPNSense Router. First thing we'll log in using the username and credentials. The username is <strong>root</strong> and the password is <strong>opnsense</strong> if you changed it during the installation you can enter the password you created.</p>
+<p>Logging in will display information about your Network interfaces and IP adderss as well as a menu where you can configure the system.</p>
+<p><a href="../images/opnsense_install/config-os2.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os2.jpg" /></a></p>
+<p>If your Network Interfaces needs to be swapped, this is where you can do it. For example, if you have a IP Address for your <strong>LAN</strong> interface but nothing for your <strong>WAN</strong> interface. Then it's possible that opnsense incorrectly assigned your interfaces, so swapping them should resolve your issue.</p>
+<p>To do that, Enter the number <strong>1</strong> and press enter:</p>
+<p><a href="../images/opnsense_install/config-os3.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os3.jpg" /></a></p>
+<p>It will ask you if you want to configure <strong>LAGGs</strong> now, if you know what this is and would like to configure it, you can say yes, if you don't know what this is, you can say no. Notice the <strong>N</strong> is uppercase and the <strong>y</strong> is lowercase.
+This is because <strong>N</strong> is the default value so if you just press enter, it will select no by default.</p>
+<p><a href="../images/opnsense_install/config-os4.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os4.jpg" /></a></p>
+<p>Next it will ask to configure <strong>VLANs</strong>. I will not be using any VLANs for this router so I will say <strong>no</strong>.</p>
+<p><a href="../images/opnsense_install/config-os5.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os5.jpg" /></a></p>
+<p>Now it will ask you to select your <strong>WAN</strong> interface. Your <strong>WAN</strong> interface is what connects to your gateway that then connects out to the internet. For my setup, the <strong>WAN</strong> interface is <strong>vxm1</strong>. If you mess up here, don't worry you can always go back and change the interfaces.</p>
+<p><a href="../images/opnsense_install/config-os6.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os6.jpg" /></a></p>
+<p>After selecting my <strong>WAN</strong> interface, it will ask me to select my <strong>LAN</strong> which is <strong>vmx0</strong></p>
+<p><a href="../images/opnsense_install/config-os7.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os7.jpg" /></a></p>
+<p>It will ask your to configure an Optional Interface next, since I only have 2 interfaces, I'm not able to configure an optional interface. So I will press enter to proceed.</p>
+<p><a href="../images/opnsense_install/config-os8.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os8.jpg" /></a></p>
+<p>Once I'm done with all of my configuration. I will type <strong>y</strong> to proceed. Remember you have to enter <strong>y</strong> then press enter. If you just press enter it will select the default option which is <strong>N</strong>. </p>
+<p><a href="../images/opnsense_install/config-os9.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os9.jpg" /></a></p>
+<p>Proceeding with the changes, will reload all of the interfaces. Once it's completed, you'll be back at the main screen. From here, hopefully you've been assigned a <strong>WAN</strong> IP address not. if not, and you've already tried swapping your interfaces and you're using a virtual appliance like I am, you might need to take another look at your virtual switch and port groups. Something might be off. You can trying assigned a manual IP address and see if that works. If it does and it looks like it's an issue with your DHCP Service.</p>
+<p>To set your IP address interface, select <strong>(2) Set Interface IP Address</strong> and press <strong>Enter</strong></p>
+<p><a href="../images/opnsense_install/config-os10.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os10.jpg" /></a></p>
+<p>From here it will ask you select the interface you would like to configure. I'll start with my <strong>LAN</strong> interface, so I will type 1 and press <strong>Enter</strong></p>
+<p><a href="../images/opnsense_install/config-os11.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os11.jpg" /></a></p>
+<p>First you will be ask if you would like to configure your <strong>LAN</strong> using DHCP. DHCP started for the <strong>Dynamic Host Configuration Protocol</strong> and it's responsible for automatically handing out IP addresses. I personally did not preconfigure any other DHCP service on my network so I will say no in this situation. If you're not sure you're I would go with no as well.</p>
+<p><a href="../images/opnsense_install/config-os12.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os12.jpg" /></a></p>
+<p>Next it will ask you for your LAN IP address. I personally like to use the last IP Address in the subnet as my IP address for my routers and gateway, but you can use any that you like. First, last or somewhere in the middle.</p>
+<p>This will be the networking scheme I will be using:</p>
+<ul>
+<li>IP address: 192.168.100.254</li>
+<li>Subnet Mask: 255.255.255.0 or 24 bits as it will ask.</li>
+<li>Gateway: None</li>
+</ul>
+<p>The last option it ask if for an upstream gateway. For your LAN you don't have to enter anything here as your <strong>WAN</strong> interface will be responsible for forwarding your traffic to the internet. you can just press <strong>Enter</strong> here.</p>
+<p><a href="../images/opnsense_install/config-os13.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os13.jpg" /></a></p>
+<p>For <strong>IPv6 address LAN interface via WAN tracking</strong> I will just accept the defaults.</p>
+<p><a href="../images/opnsense_install/config-os14.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os14.jpg" /></a></p>
+<p>For the option to <strong>enable the DHCP server on LAN?</strong> I will say <strong>y</strong>. If you went ahead and said no, that's okay as well. It means you will just have to assign your IP address manually but this can be changed later on when we log into the web portal.</p>
+<p>It will ask for a range of IP addresses. By default a /24 or 255.255.255.0 subnet will give you 254 IP addresses that can be used. Since I'm using 192.168.100.254 as my router <strong>LAN</strong> IP address my range will be from 192.168.100.1-192.168.100.253.</p>
+<p>So for the questions - <strong>Enter the start address of the IPv4 client address range:</strong> I will enter: <strong>192.168.100.1</strong> and for the <strong>End IP address</strong> I will enter <strong>192.168.100.253</strong></p>
+<p>Once I'm happy with my choices I will press <strong>Enter</strong> to proceed. </p>
+<p><a href="../images/opnsense_install/config-os15.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os15.jpg" /></a></p>
+<p>For the other Questions:</p>
+<p><strong>Do you want to change the web GUI protocol from https to http?</strong>: <strong>no</strong> - accept the default
+<strong>Do you want to generate a new self-signed web GUI certificate?</strong> : <strong>no</strong> - I will choose no here, but if you are having certificate issues, you can say yes.
+<strong>Restore web GUI access defaults?</strong> - <strong>no</strong> - You can say yes, if you're having issues with the web GUI.</p>
+<p><a href="../images/opnsense_install/config-os16.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os16.jpg" /></a></p>
+<p>Once you're done all of your selections, you can proceed. Opnsense will do another reload to apply the configurations you've just selected.</p>
+<p><strong>Now let's configure our WAN Interface</strong></p>
+<p>Select option <strong>2</strong>: similar to how we did when we configured the <strong>LAN</strong> and then select option <strong>2</strong> to configure your <strong>WAN</strong> interface.</p>
+<p><a href="../images/opnsense_install/config-os17.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os17.jpg" /></a></p>
+<p>First question it will ask is if you want to configure your <strong>WAN</strong> interface to use DHCP. I will say no to maually set my IP address. For my <strong>WAN</strong> configuration. I will use the following:</p>
+<ul>
+<li><strong>IP address</strong> - 192.168.50.100</li>
+<li><strong>Subnet Mask</strong> - 255.255.255.0</li>
+<li><strong>Gateway</strong> - 192.168.50.254</li>
+</ul>
+<p><strong>Do you want to use the gateway as the IPv4 name server, too?</strong> - I will choose <strong>n</strong> here.</p>
+<p>For the name server I will use: <strong>1.1.1.1</strong></p>
+<p>Opnsense will ask you a few questions about configuring the GUI. you can say no to all of these as you won't be logging into the GUI using the <strong>WAN</strong> IP address. OPNsense by default blocks GUI access through the <strong>WAN</strong></p>
+<p><strong>Configure IPv6 address WAN interface via DHCP6?</strong> - <strong>no</strong></p>
+<p><strong>Do you want to change the web GUI protocol from https to http?</strong>: <strong>no</strong></p>
+<p><strong>Do you want to generate a new self-signed web GUI certificate?</strong> : <strong>no</strong></p>
+<p><strong>Restore web GUI access defaults?</strong> - <strong>no</strong></p>
+<p><a href="../images/opnsense_install/config-os19.jpg"><img alt="Installing OPNsense" src="../images/opnsense_install/config-os19.jpg" /></a></p>
+<p>Once again. Opnsense will reload to apply the settings you just configured. </p>
+<p>At point this, your opnsense router is fully configured to help be the gateway for the new Windows Server Lab we will build. Once again, this is an optional step. you don't have to do this, as you can just use any free IP address to configure your Windows Servers. However, there is still more to be done with our router.</p>
+<p>If you've made it this far. Thank you for reading. Next up we will start to configure out Windows Servers.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>
