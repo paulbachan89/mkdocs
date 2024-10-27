@@ -137,7 +137,7 @@ First I will change my Timezone, I can click on the link next to **Timezone** to
 
 [![Select creation type](images/config-win10.jpg)](images/config-win10.jpg)
 
-Next I woud like to configure my IP address. Back inside of Server Manager. My Network adapter is called Ehternet0, so I will click on the link next to it to configure my IP address.
+Next I would like to configure my IP address. Back inside of Server Manager. My Network adapter is called Ehternet0, so I will click on the link next to it to configure my IP address.
 
 [![Select creation type](images/config-net1.jpg)](images/config-net1.jpg)
 
