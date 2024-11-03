@@ -1,0 +1,1146 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://infotechtutorials.ca/HomeLab/Windows_Projects/dc-02/">
+      
+      
+        <link rel="prev" href="../dc-01/">
+      
+      
+        <link rel="next" href="../Active_Directory/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>DC-02 - InfoTechTutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#building-a-secondary-domain-controller" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="InfoTechTutorials" class="md-header__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            InfoTechTutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DC-02
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/" class="md-tabs__link">
+          
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Project_Goals/" class="md-tabs__link">
+          
+  
+  Homelab Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="InfoTechTutorials" class="md-nav__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    InfoTechTutorials
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/posts/firstp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Homelab Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Homelab Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Project_Goals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Goals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../opnsense/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OPNsense Install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_4" id="__nav_3_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows_Server_Install/WinSrvInstall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows Server Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dc-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DC-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    DC-02
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    DC-02
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-secondary-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building a Secondary Domain Controller
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-account-vs-domain-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Account vs. Domain Account
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-active-directory-domain-services-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Active Directory Domain Services Role
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#promoting-dc-02-to-be-a-secondary-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Promoting DC-02 to be a Secondary Domain Controller
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Active_Directory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Active Directory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Linux Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linux Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux_Projects/Debian_12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Debian 12
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux_Projects/dhcp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DHCP Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-secondary-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building a Secondary Domain Controller
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-account-vs-domain-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Local Account vs. Domain Account
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-active-directory-domain-services-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Active Directory Domain Services Role
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#promoting-dc-02-to-be-a-secondary-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Promoting DC-02 to be a Secondary Domain Controller
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>DC-02</h1>
+
+<h2 id="building-a-secondary-domain-controller">Building a Secondary Domain Controller</h2>
+<p>In the previous section we created a New Domain Controller called: DC-01 you can find that setup here: <a href="../dc-01/">DC-01</a>. Now we're going to be creating a new domain controller. I've essentially built a new Windows Server and called it: <strong>DC-02</strong> following the same methods I did in this page: <a href="../Windows_Server_Install/WinSrvInstall/">Windows Server Installation</a>. The only things I changed here where was the name of the Virtual Machine, the Hostname and the IP address where I used: </p>
+<ul>
+<li><strong>IP address</strong>: 192.168.100.21</li>
+<li><strong>Subnet Mask</strong>: 255.255.255.0</li>
+<li><strong>Gateway</strong>: 192.168.100.254</li>
+<li><strong>DNS Server 1</strong>: 192.168.100.20</li>
+<li><strong>DNS Server 2</strong>: 192.168.100.21</li>
+</ul>
+<p>You might have noticed that I used DC-01 as the DNS Server 1 and DC-02 will be the secondary DNS Server. If you're think that you prefer to use google's DNS at 8.8.8.8. Let's see why that won't work for you.</p>
+<p>So we currently have an Active Directory Domain. Awesome right, but how do we use it and what does that really mean? Currently inside of our Active Directory Domain we only have 1 server within our Domain and that is DC-01. Which means we can only manage DC-01 and any user accounts that we create can only log into DC-01. Which is not very useful at the moment but we'll change that. We'll add DC-02 to our prblabs.ca domain. Here's how we do that but first, I changed my DNS settings on DC-02 to be the following.</p>
+<p><a href="../dc-02_install/dc02-1.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-1.jpg" /></a></p>
+<p>Notice I have my DNS servers set to 8.8.8.8 and 1.1.1.1. These are what you call: Public DNS Servers. Which means anyone can use this to get out to the internet. </p>
+<p>Now to add DC-02 to my prblabs.ca Domain. First I open up Server Manager and go to Local Computer then I click on Computer Name: <strong>dc-02</strong> </p>
+<p><a href="../dc-02_install/dc02-2.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-2.jpg" /></a></p>
+<p>Then I click on <strong>Change</strong></p>
+<p><a href="../dc-02_install/dc02-3.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-3.jpg" /></a></p>
+<p>And under <strong>Member of</strong> I change this from <strong>Workgroup</strong> to a <strong>Domain</strong> and I enter <strong>prblabs.ca</strong> in the Domain field:</p>
+<p><a href="../dc-02_install/dc02-4.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-4.jpg" /></a></p>
+<p>And I will then click <strong>OK</strong> and spoiler alert there is going to be an error message:</p>
+<p><a href="../dc-02_install/dc02-5.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-5.jpg" /></a></p>
+<p>Now the reason why this gave us an error message is because we have our DNS entries set to: 8.8.8.8 and 1.1.1.1. And because of that, we cannot contact DC-01 to join the domain. </p>
+<p>Here's a few test:</p>
+<p>Can I ping DC-01 IP address 192.168.100.20:</p>
+<p><a href="../dc-02_install/dc02-6.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-6.jpg" /></a></p>
+<p>The answer is yes, but what this means is that they are in the same network so yes they can communicate with each, but when it comes to name resolution. dc-01's domain name is dc-01.prblabs.ca, DC-02 knows go to get to 192.168.100.20 because our gateway handles that but when it comes to name resolution, we are relying on Google's and Cloudflare's DNS which does not know what DC-01 is and what it's IP address is. We can see that by trying the following command in CMD:</p>
+<p><a href="../dc-02_install/dc02-7.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-7.jpg" /></a></p>
+<p>nslookup is a command that we can use to tell us what the IP address of a DNS entry like google.com and Microsoft.com. You can see we can get information on google.com but not one dc-01.prblabs.ca. The fix this we need a DNS server that can resolve the hostname dc-01.prblabs.ca and lucky for us we do have a DNS server that can do that. It's DC-01.</p>
+<p>So we'll change our DNS IP address as the following:</p>
+<p><a href="../dc-02_install/dc02-8.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-8.jpg" /></a></p>
+<p>Alright, let's try out nslookup command again.</p>
+<p><a href="../dc-02_install/dc02-9.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-9.jpg" /></a></p>
+<p>There is a DNS request timed out message, but we were able to resolve dc-01.prblabs.ca to 192.168.100.20. Perfect. let's trying adding DC-02 to our Domain now.</p>
+<p><a href="../dc-02_install/dc02-10.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-10.jpg" /></a></p>
+<p>If a Windows Security box comes up for you to enter your username and password, that's means we're able to contact DC-01 to join the domain. From here, we need to enter a <strong>Domain Account</strong> credential for authentications. This is important. Domain Accounts and objects that are created within Active Directory. When we first promoted DC-01 to be a domain controller our Administrator account got converted to a domain account. So we can use that, but we also created a user account called: <strong>prbadmin</strong>. I will use this but you can use something else. Again, the user account you created on DC-02 will not work. Only a Domain Account is needed here.</p>
+<p><a href="../dc-02_install/dc02-11.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-11.jpg" /></a></p>
+<p>Once I enter my domain admin credential here I will click <strong>OK</strong></p>
+<p>If you see <strong>Welcome to the prblabs.ca domain</strong> it means you were successful, if you had a incorrect user name and password, it means there is something wrong with your credentials. If you got an insufficient permission message it means that your user account does not have the necessary rights to add a computer to a domain. You can resolve this by adding your user account to the domain admins security group.</p>
+<p>Once you're done and it's working you can click <strong>OK</strong></p>
+<p><a href="../dc-02_install/dc02-12.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-12.jpg" /></a></p>
+<p>Then it will tell you that you need to restart for it to take effect. Click <strong>OK</strong></p>
+<p><a href="../dc-02_install/dc02-13.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-13.jpg" /></a></p>
+<p>After that you can click <strong>Close</strong> </p>
+<p><a href="../dc-02_install/dc02-14.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-14.jpg" /></a></p>
+<p>On the System Properties box and there is will ask you if you want to reboot, I will click restart now.</p>
+<p><a href="../dc-02_install/dc02-15.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-15.jpg" /></a></p>
+<p>Once it's completed rebooting, you will be bring to the login screen.</p>
+<p><a href="../dc-02_install/dc02-16.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-16.jpg" /></a></p>
+<h2 id="local-account-vs-domain-account">Local Account vs. Domain Account</h2>
+<p>Before you log back into DC-02. There's a few things you should know. Prior to joining DC-02 to the Domain, whenever we log into DC-02, we're using an user account that exist on DC-02. This is call a <strong>local account</strong> which means the account exist on DC-02 local hard drive, we can also create many more Local Accounts for DC-02 and log into with those as well, but they will all still be stored on  DC-02's local hard drive. So even if DC-02 has no network access, you will still be able to log into DC-02 using the local account. Now that we've added DC-02 to our <strong>prblabs.ca</strong> Domain, we can now log into the DC-02 using <strong>Domain Accounts</strong> these accounts are stored inside of Active Directory, so when we log into DC-02, it reaches out to the network and then contacts our Domain Controller which is DC-01, and from there DC-01 will authenticate and authorize DC-02 to login using the <strong>Domain Account</strong> as long as the account as the relevant permissions. </p>
+<p>Let's try logging into our Local Account on DC-02, at the login screen click on <strong>Other user</strong></p>
+<p><a href="../dc-02_install/dc02-17.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-17.jpg" /></a></p>
+<p>Notice when I click on <strong>Other User</strong> at the bottom left hand corner of the screen, right below the credentials boxes, I see <strong>Sign in to: PRBLABS</strong>. What this means that when I'm logging in, I need to use a domain credential to get in. If you're wondering, how can you log in as your local administrator account. If you enter a <strong>./</strong> at the user logon box it will change the sign in location to be your local computer, let's try that.</p>
+<p><a href="../dc-02_install/dc02-18.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-18.jpg" /></a></p>
+<p>Notice when I enter the symbols <strong>./</strong> my prompt gets changed to say <strong>Sign in to: DC-02</strong>. What this means is that I will be using local credentials instead of domain credentials. </p>
+<p>We'll explore more about credentials as we go along. For now, Let's sign in using a domain credentials. I'll use my <strong>prbadmin</strong> credentials and then I'll press enter.</p>
+<p><a href="../dc-02_install/dc02-19.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-19.jpg" /></a></p>
+<p>As long as your credentials is correct, it will log you into the desktop as the domain user. Now let's trying logging in as a local user. I will log out of my server by click on the start menu then clicking on my profile icon then logout.</p>
+<p><a href="../dc-02_install/dc02-20.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-20.jpg" /></a></p>
+<p>Once we're logged out we'll be brought back to the Log in screen and from here we'll log in as the local administrator. Once again press CTRL + ALT + DEL and then log in as using <strong>.\Administrator</strong> and the administrator password you created after completing the installation of Windows.</p>
+<p><a href="../dc-02_install/dc02-21.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-21.jpg" /></a></p>
+<p>Once again, we're choosing to log in as <strong>Other user</strong> and notice that <strong>Sign in to</strong> changes from <strong>prblabs</strong> to <strong>DC-02</strong>. This is important to note because we're telling it that we want to log into the Server using our local account that exist on the hard drive and not the Domain Account that exist on DC-02. </p>
+<p>Once we press enter, you'll be logged in as the local administrator. Please know that a Domain Administrator and Local user have different permissions. We'll dive a bit more into that as we go along. For now, I will sign out of local session and we'll sign back in as our Domain account.</p>
+<h2 id="installing-active-directory-domain-services-role">Installing Active Directory Domain Services Role</h2>
+<p>First thing, we'll install the the <strong>Active Directory Domain Services</strong> role. If you remember how to do this, you can go ahead and install it. If you need a refresher you can following the steps below:</p>
+<p>Launch <strong>Server Manager</strong> and click on <strong>Manage</strong> then click <strong>Add Roles and Features</strong></p>
+<p><a href="../dc-02_install/dc02-22.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-22.jpg" /></a></p>
+<p>From there press <strong>Next</strong></p>
+<p><a href="../dc-02_install/dc02-23.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-23.jpg" /></a></p>
+<p>Select <strong>Role-based or feature-based installation</strong> then click <strong>Next</strong></p>
+<p><a href="../dc-02_install/dc02-24.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-24.jpg" /></a></p>
+<p>Select <strong>DC-02</strong> for your destination server:</p>
+<p><a href="../dc-02_install/dc02-25.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-25.jpg" /></a></p>
+<p>Select <strong>Active Directory Domain Services</strong> for the Server Role:</p>
+<p><a href="../dc-02_install/dc02-26.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-26.jpg" /></a></p>
+<p>Select <strong>Add Features</strong> to add the required features:</p>
+<p><a href="../dc-02_install/dc02-27.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-27.jpg" /></a></p>
+<p>Then Click <strong>Next</strong></p>
+<p><a href="../dc-02_install/dc02-28.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-28.jpg" /></a></p>
+<p>Click <strong>Next</strong> for Select Feature:</p>
+<p><a href="../dc-02_install/dc02-29.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-29.jpg" /></a></p>
+<p>Then <strong>Next</strong> for <strong>Active Directory Domain Services</strong>:</p>
+<p><a href="../dc-02_install/dc02-30.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-30.jpg" /></a></p>
+<p>Click <strong>Install</strong> to begin the installation:</p>
+<p><a href="../dc-02_install/dc02-31.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-31.jpg" /></a></p>
+<p>The installation is was successful. Now I can easily click <strong>Promote this server to a domain controller</strong>, however. I will hit close and show you where you can complete the rest of the task.</p>
+<p><a href="../dc-02_install/dc02-32.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-32.jpg" /></a></p>
+<h2 id="promoting-dc-02-to-be-a-secondary-domain-controller">Promoting DC-02 to be a Secondary Domain Controller</h2>
+<p>Back inside of <strong>Server Manager</strong>, you should notice a yellow exclamation mark on the flag in the top right hand corner.</p>
+<p><a href="../dc-02_install/dc02-33.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-33.jpg" /></a></p>
+<p>If you click on it, you will see that they are is a <strong>Post-Deployment Configuration</strong> that needs to be completed. We will click on <strong>Promote this server to a domain controller</strong>. I wanted to show you this because there are other server roles that has post-deployment configurations. In the event that you mistakenly closed out the completed installation window, you can alway complete your post-deployment task here.</p>
+<p><a href="../dc-02_install/dc02-34.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-34.jpg" /></a></p>
+<p>For Deployment Configuration we will choose <strong>Add a domain controller to an existing domain</strong>.</p>
+<p><a href="../dc-02_install/dc02-35.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-35.jpg" /></a></p>
+<p>For <strong>Domain</strong> enter: <strong>prblabs.ca</strong></p>
+<p><a href="../dc-02_install/dc02-36.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-36.jpg" /></a></p>
+<p>Then click on <strong>Change</strong> to supply an account with the proper privileges. Remember your account needs to be added to the <strong>Domain Admin</strong> group within <strong>Active Directory</strong></p>
+<p><a href="../dc-02_install/dc02-37.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-37.jpg" /></a></p>
+<p>Then enter your credentials in the pop-up box:</p>
+<p><a href="../dc-02_install/dc02-38.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-38.jpg" /></a></p>
+<p>Once you're done, click <strong>Next</strong></p>
+<p><a href="../dc-02_install/dc02-39.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-39.jpg" /></a></p>
+<p>For <strong>Domain Controller Options</strong> we'll keep all of the defaults and enter a password for <strong>Directory Services Restore Mode DSRM</strong>. This is a very important password so be sure to remember it.</p>
+<p><a href="../dc-02_install/dc02-40.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-40.jpg" /></a></p>
+<p>Click <strong>Next</strong> for DNS Options.</p>
+<p><a href="../dc-02_install/dc02-41.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-41.jpg" /></a></p>
+<p>For <strong>Additional Options</strong>, For the replication options, you can leave <strong>Any Domain Controller</strong> unless you need to choose something else.</p>
+<p><a href="../dc-02_install/dc02-42.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-42.jpg" /></a></p>
+<p>For the <strong>Paths</strong> you can leave all of the default location for the database and log files:</p>
+<p><a href="../dc-02_install/dc02-43.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-43.jpg" /></a></p>
+<p>For the <strong>Review Options</strong> you can click next:</p>
+<p><a href="../dc-02_install/dc02-44.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-44.jpg" /></a></p>
+<p>At the <strong>Prerequisites Check</strong> you can click on <strong>Install</strong> providing that you passed all of the <strong>Prequisites</strong></p>
+<p><a href="../dc-02_install/dc02-45.jpg"><img alt="Select creation type" src="../dc-02_install/dc02-45.jpg" /></a></p>
+<p>Once the installation is completed. DC-02 will reboot automatically. Once it comes back online. It will officially be a Domain Controller for the prblabs.ca domain.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>

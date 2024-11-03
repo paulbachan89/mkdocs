@@ -1,0 +1,2057 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://infotechtutorials.ca/HomeLab/Windows_Projects/dc-01/">
+      
+      
+        <link rel="prev" href="../Windows_Server_Install/WinSrvInstall/">
+      
+      
+        <link rel="next" href="../dc-02/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>DC-01 - InfoTechTutorials</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#what-is-active-directory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="InfoTechTutorials" class="md-header__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            InfoTechTutorials
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DC-01
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../blog/" class="md-tabs__link">
+          
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Project_Goals/" class="md-tabs__link">
+          
+  
+  Homelab Projects
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="InfoTechTutorials" class="md-nav__button md-logo" aria-label="InfoTechTutorials" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    InfoTechTutorials
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/posts/firstp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Homelab Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Homelab Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Project_Goals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Project Goals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../opnsense/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OPNsense Install
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_4" id="__nav_3_1_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Windows Server
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Windows Server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows_Server_Install/WinSrvInstall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows Server Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    DC-01
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    DC-01
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-controllersdcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Controllers(DCs):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizational-units-ous" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizational Units (OUs):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-directory-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active Directory Objects:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trust
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-catalog-gc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Catalog (GC):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Group Policy:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-directory-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active Directory Roles:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-of-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases of Active Directory:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-microsoft-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Microsoft Active Directory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Microsoft Active Directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Domain Controller?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-functions-of-a-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Functions of a Domain Controller:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-controller-in-a-windows-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Controller in a Windows Domain:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-domain-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of Domain Controllers:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perquisites-for-setting-up-your-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perquisites for Setting up your Domain Controller
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dc-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DC-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Active_Directory/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Active Directory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Linux Projects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Linux Projects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux_Projects/Debian_12/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installing Debian 12
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux_Projects/dhcp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DHCP Project
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-controllersdcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Controllers(DCs):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organizational-units-ous" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizational Units (OUs):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-directory-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active Directory Objects:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trust
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-catalog-gc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Catalog (GC):
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Group Policy:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-directory-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active Directory Roles:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases-of-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Cases of Active Directory:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-microsoft-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Microsoft Active Directory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing Microsoft Active Directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Domain Controller?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-functions-of-a-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Functions of a Domain Controller:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-controller-in-a-windows-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Controller in a Windows Domain:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-domain-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of Domain Controllers:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perquisites-for-setting-up-your-domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Perquisites for Setting up your Domain Controller
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="what-is-active-directory">What is Active Directory?</h1>
+<p>Okay, so at that the beginning of this project we talked about Windows Server and the roles they server in an On-prem Infrastructure. When you access something like google.com or Microsoft.com you are accessing a web-server that is providing a service. That web-server's job is to display the website for anyone that is accessing it. Let's say you wanted to self-host you own File Server, so you download a software called <strong>Nextcloud</strong> and you install it on a Linux Machine. The job of that <strong>Nextcloud</strong> server to ensure that you can share your files with your family and friends. </p>
+<p>Active Directory is directory service that is used to manage and store information about network resources like computers, users, services and devices, providing centralized administration and security for these resources. Active Directory has multiple components that it uses to manage these resources:</p>
+<h2 id="domain">Domain:</h2>
+<ul>
+<li>A domain is a logical group of objects (such as users and computers) that share the same Active Directory database. Each domain has its own security policies and relationships with other domains. A Domain has an hierarchical structure to store objects.</li>
+</ul>
+<h2 id="domain-controllersdcs">Domain Controllers(DCs):</h2>
+<p>A Domain Controller is a server that host the <strong>Active Directory Domain Services</strong> role, You can think of it as a centralize location that all computers has to talk too.  Domain controllers are servers that store a copy of the Active Directory database and manage authentication and access to resources within the domain. They handle tasks like:</p>
+<ul>
+<li>User authentication (e.g., logging in to the network)</li>
+<li>Managing group policies</li>
+<li>Storing user, computer, and resource data</li>
+</ul>
+<h2 id="organizational-units-ous">Organizational Units (OUs):</h2>
+<ul>
+<li>OUs are containers that organize users, computers, groups, and other OUs within a domain. They allow for delegation of administrative control and the application of group policies.</li>
+</ul>
+<h2 id="active-directory-objects">Active Directory Objects:</h2>
+<p>The main entities stored in Active Directory are objects, which include:</p>
+<ul>
+<li>Users: Individual accounts representing people who access the network.</li>
+<li>Computers: Machines that are joined to the domain.</li>
+<li>Groups: Collections of users, computers, or other resources that can be managed together.</li>
+<li>Printers and Shared Folders: Devices and directories shared across the network.</li>
+</ul>
+<h2 id="trust">Trust</h2>
+<ul>
+<li>Active Directory allows the creation of trust relationships between domains, enabling users from one domain to access resources in another domain. Trusts can be one-way or two-way.</li>
+</ul>
+<h2 id="global-catalog-gc">Global Catalog (GC):</h2>
+<ul>
+<li>The Global Catalog contains a partial, read-only copy of all objects in an Active Directory forest, allowing users and applications to search for resources across multiple domains.</li>
+</ul>
+<h2 id="group-policy">Group Policy:</h2>
+<ul>
+<li>Group Policy allows administrators to define settings and configurations for users and computers in the domain. These can include security settings, software deployment, and user environment customization.</li>
+</ul>
+<h2 id="active-directory-roles">Active Directory Roles:</h2>
+<p>Active Directory provides several server roles that can be assigned to domain controllers, such as:</p>
+<ul>
+<li>Schema Master: Controls updates and changes to the Active Directory schema.</li>
+<li>Domain Naming Master: Manages changes to the domain name space in the forest.</li>
+<li>PDC Emulator: Emulates a Windows NT primary domain controller (PDC) and handles password changes and time synchronization.</li>
+</ul>
+<h2 id="use-cases-of-active-directory">Use Cases of Active Directory:</h2>
+<ul>
+<li>Centralized user management: Admins can manage user accounts, passwords, and permissions from a single location.</li>
+<li>Resource access control: AD enables secure access to network resources such as shared files, printers, and applications.</li>
+<li>Security policies: Admins can enforce password policies, software restrictions, and desktop settings through Group Policy.</li>
+</ul>
+<h2 id="installing-microsoft-active-directory">Installing Microsoft Active Directory</h2>
+<p>Before we get into the installation, let's pause a bit and think about what we're doing. Currently we have a Windows Server called <strong>dc-01</strong> and it's currently not really doing anything. If we want this server to serve a purpose we need to give it a role. For <strong>dc-01</strong> the we're going to give it a role called a <strong>Active Directory Domain Server</strong> so it can become a <strong>Domain Controller</strong>. If you're planning on creating a new Windows Server Infrastructure, the <strong>Domain Controller</strong> is probably the most important and critical server in your Infrastructure and it's always the first server we should install unless you have a specific reason for not doing so.</p>
+<h3 id="what-is-a-domain-controller">What is a Domain Controller?</h3>
+<p>A Domain Controller (DC) is a server in a network that manages and controls security authentication requests, such as user logins, and enforces security policies within a Windows domain. It is a core component of Microsoft Active Directory (AD), which is a centralized directory service that provides management and configuration of resources, such as users, computers, printers, and security policies, within a domain.</p>
+<h3 id="key-functions-of-a-domain-controller">Key Functions of a Domain Controller:</h3>
+<ul>
+<li>
+<p>Authentication: The DC authenticates users, computers, and services within the domain. For example, when a user logs in to their computer, the DC verifies their credentials (username and password).</p>
+</li>
+<li>
+<p>Authorization: After authentication, the DC grants or denies access to resources (files, folders, printers, applications) based on the permissions and policies set by the administrators.</p>
+</li>
+<li>
+<p>Active Directory (AD) Management: The DC hosts a copy of the Active Directory database, which stores information about all domain objects (users, computers, groups, etc.) and their attributes.</p>
+</li>
+<li>
+<p>Group Policy Enforcement: Domain controllers enforce security policies and group policies across the network. Administrators can set rules for password complexity, account lockouts, or application restrictions centrally, and the DC ensures they are applied to all users and computers.</p>
+</li>
+<li>
+<p>Replication: In multi-DC environments, domain controllers replicate the Active Directory database to ensure that changes (like adding a new user or modifying security settings) are consistent across the network.</p>
+</li>
+</ul>
+<h3 id="domain-controller-in-a-windows-domain">Domain Controller in a Windows Domain:</h3>
+<ul>
+<li>
+<p>Primary Domain Controller (PDC): Historically, there was a single PDC in older Windows Server environments, but now all domain controllers in modern Active Directory are considered peers.</p>
+</li>
+<li>
+<p>Read-Only Domain Controller (RODC): This is a type of domain controller that contains a read-only copy of the Active Directory database, often used in environments with lower security, such as branch offices.</p>
+</li>
+</ul>
+<h3 id="benefits-of-domain-controllers">Benefits of Domain Controllers:</h3>
+<ul>
+<li>
+<p>Centralized management: Administrators can manage all users and resources from a single location, ensuring consistency across the network.</p>
+</li>
+<li>
+<p>Security: Policies can be enforced network-wide, providing strong control over access to resources.</p>
+</li>
+<li>
+<p>Scalability: Adding new users, computers, or other objects is simple and managed centrally.</p>
+</li>
+</ul>
+<p>I know that's a lot of words and if you're new to Microsoft Domains, you're probably not sure what any of that means, but not to worry. We will install our First Domain Controller here.</p>
+<h3 id="perquisites-for-setting-up-your-domain-controller">Perquisites for Setting up your Domain Controller</h3>
+<p>Prior to setting up your Domain Controller they are a few things you should probably have ready:</p>
+<ul>
+<li>
+<p><strong>Static IP address</strong> - You'll definitely want your Domain Controller to have a IP address that doesn't change, this means you will have to manually assigned an IP address. I prefer this method over a DHCP reservation</p>
+</li>
+<li>
+<p><strong>Assigned Computer Name</strong> - Ensure that you've renamed your computer and not leave it with the default name. In Production environments, I like to name my Servers after the role it's serving. So DC-01 will be my first Domain Controller, DC-02 will be my second Domain Controller, WFS-01 will be my first Windows File Server, VPN-01 will be my first Windows VPN server. You don't have to follow naming scheme, but ensure that you're able to tell what kind of server it is just by looking at the name.</p>
+</li>
+<li>
+<p><strong>Domain Name</strong> - This is the most important decision you will make. What will you call your Domain. Most Admins will name their domain after their company, for example. Microsoft's domain will be called Microsoft.com, an insurance company named: Starlight insurance can call their domain, starlightinsurance.ca or starlightin.local. Notice that I have different top level domain (TLD) for example. .com, .ca. .local, .internal etc. These are all acceptable Top-Level Domains that you can use. </p>
+</li>
+</ul>
+<p>Before proceeding, I want to expand a bit more on the different Top-Level Domain. You can say that they are two types of TLD, you have an External TLD like .com, .ca, .org .edu or .net. Usually you will find these Top-Level Domains out on the internet but you also have a few internal Top-Level Domain like .local, .internal or .lan. </p>
+<p>So which one should you pick? an external TLD or an internal one?</p>
+<p>Here's a some information to help you make the choice:</p>
+<p>When setting up a domain for your Active Directory (AD) environment, choosing between an internal TLD (used only within the internal network) and an external TLD (which may be publicly available and used for external resources) comes with its own set of pros and cons. Your decision impacts DNS resolution, security, and compatibility with internal and external systems.</p>
+<p>Here’s a breakdown of the pros and cons of using an internal TLD versus an external TLD for your Domain Controller.</p>
+<h1 id="internal-tld">Internal TLD</h1>
+<p>An internal TLD is a domain suffix that is not publicly registered or resolvable outside of your internal network. Examples include .internal, .lan, .corp, or custom internal domains like infotech.local.</p>
+<h2 id="pros-of-internal-tld">Pros of Internal TLD</h2>
+<h3 id="increased-security">Increased Security:</h3>
+<ul>
+<li>
+<p>Internal resolution only: Internal TLDs aren’t accessible or resolvable on the public internet, which reduces the attack surface for external threats.</p>
+</li>
+<li>
+<p>Data isolation: There’s a clear separation between internal and external resources, reducing the risk of inadvertently exposing internal systems or sensitive data to the public.
+Simplicity in Name Management:</p>
+</li>
+<li>
+<p>No public domain conflicts: Since internal TLDs are not publicly registered, there's no concern about name collisions with public domains.</p>
+</li>
+<li>
+<p>Control over internal namespace: Administrators have full control over how the internal DNS is structured and managed without needing to consider external factors or domain registration processes.</p>
+</li>
+<li>
+<p>Flexibility: You can define internal domains without worrying about availability on the public internet. Custom or internal-only TLDs (like .internal or .lan) can be freely used for Active Directory without conflict.</p>
+</li>
+</ul>
+<h3 id="cons-of-internal-tld">Cons of Internal TLD</h3>
+<h3 id="potential-for-future-conflicts">Potential for Future Conflicts:</h3>
+<ul>
+<li>Some commonly used internal TLDs (like .corp or .local) may conflict with future public TLDs or technologies like mDNS (Multicast DNS), which reserves .local for use by devices such as Apple’s Bonjour.</li>
+</ul>
+<h2 id="limited-external-access">Limited External Access:</h2>
+<ul>
+<li>
+<p>Internal TLDs are not accessible outside your network without complex configurations (e.g., VPN or split-brain DNS). This makes accessing internal resources from the internet more challenging.</p>
+</li>
+<li>
+<p>Compatibility Issues: Some internal-only TLDs may cause issues when integrating with external services or when using hybrid cloud environments (e.g., Microsoft Azure or Office 365), as these services expect publicly resolvable domain names.</p>
+</li>
+</ul>
+<h3 id="no-public-resolution">No Public Resolution:</h3>
+<ul>
+<li>
+<p>If you need to resolve domain names externally (for remote workers, services in the cloud, etc.), you’ll need to manage separate DNS entries for internal and external resources.</p>
+</li>
+<li>
+<p>External TLD: An external TLD refers to a publicly registered domain name (e.g., .com, .org, .net, or a country code TLD like .ca), which is accessible both internally and externally.</p>
+</li>
+</ul>
+<h3 id="pros-of-external-tld">Pros of External TLD</h3>
+<h2 id="unified-namespace">Unified Namespace:</h2>
+<ul>
+<li>Using the same TLD both internally and externally creates a single, consistent namespace. For example, if your external domain is infotech.ca, using the same domain internally (e.g., ad.infotech.ca) simplifies DNS management and provides a seamless experience for both internal and external users.</li>
+</ul>
+<h2 id="easier-remote-access">Easier Remote Access:</h2>
+<ul>
+<li>External TLDs are resolvable over the internet, which simplifies external access to internal resources (e.g., VPN, web services, remote workers) without needing separate DNS configurations for different environments.</li>
+</ul>
+<h2 id="future-proof">Future-Proof:</h2>
+<ul>
+<li>Using a registered external TLD ensures compatibility with future technologies, cloud services, and hybrid environments. Many external services (like Office 365 or Azure AD) expect publicly resolvable domain names, making it easier to integrate without renaming domains.</li>
+</ul>
+<h2 id="public-and-internal-consistency">Public and Internal Consistency:</h2>
+<ul>
+<li>A unified TLD (for both internal and external use) eliminates the need for split-brain DNS configurations, where different records are served to internal and external users.
+Cons of External TLD</li>
+</ul>
+<h2 id="potential-security-risks">Potential Security Risks:</h2>
+<ul>
+<li>If external and internal resources share the same domain, there’s a risk that internal resources may accidentally be exposed to the public internet if DNS or firewall configurations are mismanaged.
+Public exposure of the TLD could provide attackers with insight into your internal infrastructure.</li>
+</ul>
+<h2 id="dns-complexity">DNS Complexity:</h2>
+<ul>
+<li>Managing a publicly registered domain name requires careful planning for DNS zones and record separation. Internal resources should be kept isolated from external DNS servers, typically requiring split-horizon (split-brain) DNS.</li>
+</ul>
+<h2 id="domain-registration-and-renewal-costs">Domain Registration and Renewal Costs:</h2>
+<ul>
+<li>
+<p>Using an external TLD requires registering and maintaining a public domain, which incurs ongoing costs for domain renewal and DNS hosting.
+Confusion Between Internal and External Resources:</p>
+</li>
+<li>
+<p>If not properly configured, users (or systems) might access the external versions of services rather than internal ones, causing confusion, slower access times, or exposing sensitive data.</p>
+</li>
+</ul>
+<h2 id="creating-a-domain-controller">Creating a Domain Controller</h2>
+<p>Alright, now that we have our prequisites our of the way, we can start adding the <strong>Active Directory Domain Services</strong> role, so DC-01 can become a <strong>Domain Controller</strong>. There is really two steps in this process. First we need to install the Active Directory Domain Services role then we need to promote the Server to be a <strong>Domain Controller</strong>.</p>
+<h3 id="install-active-directory-domain-services">Install Active Directory Domain Services</h3>
+<p>To Install <strong>Active Directory Domain Services</strong>, if you don't have it already, open <strong>Server Manager</strong>, then you'll want to click on <strong>Add Roles and Features</strong> there are a few places you can do this from.</p>
+<p>On your main Dashboard under <strong>WELCOME TO SERVER MANAGER</strong> the second (2nd) option <strong>Add roles and features</strong> you can click on that to add the required roles but you can also click on <strong>Manage</strong> then <strong>Add roles and features</strong>. Both of these do the exactly same thing so it doesn't matter which one you use.</p>
+<p><a href="../dc-01_install/adds1.jpg"><img alt="Select creation type" src="../dc-01_install/adds1.jpg" /></a></p>
+<p>After you click on <strong>Add Roles and Features</strong> you will have a <strong>Before you begin</strong> information about some recommended task to be completed. We've done all except the updates which we will do another time. From here click <strong>Next</strong></p>
+<p><a href="../dc-01_install/adds2.jpg"><img alt="Select creation type" src="../dc-01_install/adds2.jpg" /></a></p>
+<p>For the <strong>Select installation type</strong> we will choose <strong>Role-based or feature-base installation</strong> The second (2nd) option <strong>Remote Desktop Services</strong> is another feature we will visit in the future.</p>
+<p><a href="../dc-01_install/adds3.jpg"><img alt="Select creation type" src="../dc-01_install/adds3.jpg" /></a></p>
+<p>Next up we have <strong>Select destination server</strong>, currently we only have one (1) server to choose from but add we begin to add more and more servers to our Infrastructure, we'll be able to add roles and features on different servers which having to log into them. We can basically perform management task of many servers from just one server. Also another option here you might have notice is too <strong>Select a virtual hard disk</strong> where you can install choose to install the role on a .vhdx file. Currently we only have <strong>dc-01</strong>, so we'll click next here.</p>
+<p><a href="../dc-01_install/adds4.jpg"><img alt="Select creation type" src="../dc-01_install/adds4.jpg" /></a></p>
+<p>This is probably the screen where you'll be a bit intimidated if it's you're first time seeing it, but this is what I mean when I said that Windows Server can become something and all of these options is something that it can become. You can click through each role and read the brief description it gives you. You might notice that we already have the <strong>File and storage Services</strong> installed. By default, all Windows Server comes with this pre-installed. The role we want is the <strong>Active Directory Domain Services role</strong> so we'll check that off. </p>
+<p><a href="../dc-01_install/adds5.jpg"><img alt="Select creation type" src="../dc-01_install/adds5.jpg" /></a></p>
+<p>Right after we check the box, you will get another pop-up asking you if you want to <strong>Add features that are required for Active Directory Domain Services</strong>. As you can see from the name these are required services that are needed to install Active Directory, you do not install these the installation cannot proceed. This is very common, most roles that you will be adding requires additional features for it proceed. Click <strong>Add Features</strong> to proceed.</p>
+<p><a href="../dc-01_install/adds6.jpg"><img alt="Select creation type" src="../dc-01_install/adds6.jpg" /></a></p>
+<p>Once you've click <strong>Add Features</strong> you'll notice that <strong>Active Directory Domain Services</strong> is now checked off, so we'll click <strong>Next</strong></p>
+<p><a href="../dc-01_install/adds7.jpg"><img alt="Select creation type" src="../dc-01_install/adds7.jpg" /></a></p>
+<p>After clicking next, you will be brought to the <strong>Select features</strong> options. If you've read through the features we added early, you would have noticed that they is a feature called <strong>Group Policy</strong> and as you can see <strong>Group Policy</strong> is checked off here already along with the <strong>Remote Server Administration Tool</strong>. If you're wondering if you could have just checked it off yourself here, the answer is yes, remember you just need to features to installed Active Directory but you can choose when to install the features, but I like follow this way of doing it, I never have an issue when installing Active Directory by just adding the features when it asks. So from here, I will click <strong>Next</strong></p>
+<p><a href="../dc-01_install/adds8.jpg"><img alt="Select creation type" src="../dc-01_install/adds8.jpg" /></a></p>
+<p>On the next screen <strong>Active Directory Domain Services</strong> it gives you some things to note about it. Like installing two Domain controllers to avoid server outages if your one domain controller goes down and Active Directory requires a DNS server to be installed on the network. The Domain Naming System or DNS is an integral part of Active Directory and All Domain Controllers are DNS servers. It also tries to sell you <strong>Azure Active Directory</strong> which is the Software as a Service (SAAS), plaform that they provide. I will click <strong>next</strong> here.</p>
+<p><a href="../dc-01_install/adds9.jpg"><img alt="Select creation type" src="../dc-01_install/adds9.jpg" /></a></p>
+<p>Finally you'll arrive at the <strong>Confirm installation selections</strong> screen where you have the opportunity to go back and check all of your settings to ensure that you selected the correct Roles and Features. <strong>Active Directory Domain Service</strong> is a very straightforward installation and if you've been following along what I've been doing, then you should not have any issues. Click <strong>Install</strong> to begin the installation. You can also check the box to <strong>Restart the destination server automatically if required</strong> installing <strong>Active Directory Domain Services</strong> does not require a reboot so I will just will install for now</p>
+<p><a href="../dc-01_install/adds10.jpg"><img alt="Select creation type" src="../dc-01_install/adds10.jpg" /></a></p>
+<h2 id="promoting-domain-controller">Promoting Domain Controller</h2>
+<p>As long as you've added the correct features your install should finish without any errors, it also gives you a summery of all the roles and features that it successfully installed. If it does error out you might have to do some research to figure out why it errored out. Now that the role is successfully installed, you will see under Active Directory Domain Services that <strong>Additional steps are required to make this machine a domain controller</strong> and under that you have <strong>Promote this server to a domain controller</strong>.</p>
+<p><a href="../dc-01_install/adds10.jpg"><img alt="Select creation type" src="../dc-01_install/adds10.jpg" /></a></p>
+<p>Next we will click the option <strong>Promote this server to a domain controller</strong> to begin the process. The first screen that comes up is <strong>Deployment Configuration</strong>. Here, you have a few options and I'll go through these.</p>
+<ul>
+<li>
+<p><strong>Add a Domain controller to an existing domain</strong> - This option would be useful if we were adding a second (2nd) Domain Controller to an existing forest. We currently don't have an Active Directory forest so this option will not work for us.</p>
+</li>
+<li>
+<p><strong>Add a new domain to an existing forest</strong> - This option would be useful if we were adding another domain to our forest. For example if our Domain was called infotech.ca we can add a sub-domain called us.infotech.ca or even something something completely different like techlabs.ca. Let's say that we did indeed have all three of these domains, infotech.ca, us.infotech.ca and techlabs.ca, we can have all three of these domain exist within something called an Active Directory <strong>Forest</strong>. Think of an Forest as a container for domains. and Within the forest you can manage all of your domains and share resources between them.</p>
+</li>
+<li>
+<p><strong>Add a new forest:</strong> - THis is the option you want to choose if you starting from the beginning, you don't have any forest or domain pre-existing. This is the first step you take. As I mentioned earlier, think of a forest as a container for your domains. We will choose <strong>Add a new forest</strong> and we will enter the domain: <strong>prblabs.ca</strong></p>
+</li>
+</ul>
+<p><a href="../dc-01_install/adds12.jpg"><img alt="Select creation type" src="../dc-01_install/adds12.jpg" /></a></p>
+<p>Your next screen will take you to <strong>Domain Controller Options</strong>. Your first choice is: Select functional level of the new forest and root domain. Forest and Domain functional levels are classified by different version of Windows Server operation system. The more </p>
+<p>Here's some additional information about Forest and Domain functional level</p>
+<p>The <strong>Forest Functional Level (FFL)</strong> in Active Directory defines the set of Active Directory features that are available across all domains within a forest. It determines the version of Windows Server that can be used on domain controllers (DCs) and the features that can be used across the forest. It also ensures that domain controllers in the forest are running compatible versions of Windows Server for the selected functional level.</p>
+<h2 id="key-points-about-forest-functional-levels">Key Points About Forest Functional Levels:</h2>
+<ul>
+<li>
+<p><strong>Compatibility:</strong> The FFL specifies the minimum version of Windows Server that domain controllers must run. For example, if the FFL is set to Windows Server 2016, all domain controllers in the forest must be running Windows Server 2016 or later.</p>
+</li>
+<li>
+<p><strong>Features:</strong> Each functional level introduces new Active Directory features, improving the management, security, and functionality of the forest. Some advanced features only become available when the forest is raised to a higher functional level.</p>
+</li>
+<li>
+<p><strong>Per-Forest Setting:</strong> The FFL applies to all domains within the forest. In contrast, Domain Functional Level (DFL) applies to individual domains within the forest. However, a domain cannot have a higher DFL than the forest’s FFL.</p>
+</li>
+</ul>
+<h2 id="raising-the-forest-functional-level">Raising the Forest Functional Level:</h2>
+<p>You can raise the FFL to enable new features, but once you do so, older domain controllers running older versions of Windows Server cannot be part of the forest.</p>
+<ul>
+<li>
+<p>To raise the forest functional level, you must ensure that all domain controllers in the forest are running the minimum Windows Server version required by the new functional level.</p>
+</li>
+<li>
+<p>This action is one-way—you cannot lower the FFL once it is raised without performing a domain or forest restore.</p>
+</li>
+</ul>
+<h2 id="available-forest-functional-levels">Available Forest Functional Levels:</h2>
+<p>Here’s a breakdown of the available forest functional levels and the features they provide:</p>
+<h2 id="windows-2000-native">Windows 2000 Native:</h2>
+<ul>
+<li>Basic Active Directory features such as organizational units (OUs), Group Policy, and universal groups.</li>
+</ul>
+<h2 id="windows-server-2003">Windows Server 2003:</h2>
+<ul>
+<li>
+<p>Forest Trusts: Allows the creation of trust relationships between different forests.</p>
+</li>
+<li>
+<p>Linked Value Replication: Improves replication of multi-valued attributes like group memberships.</p>
+</li>
+<li>
+<p>Improved security: More granular password policies.</p>
+</li>
+</ul>
+<h2 id="windows-server-2008">Windows Server 2008:</h2>
+<ul>
+<li>
+<p>Read-only Domain Controllers (RODCs): Allows domain controllers with read-only copies of Active Directory, improving security in less trusted locations.</p>
+</li>
+<li>
+<p>DFS Replication for SYSVOL: Replaces the older File Replication Service (FRS) for better replication.
+Windows Server 2008 R2:</p>
+</li>
+<li>
+<p>Active Directory Recycle Bin: Allows restoration of accidentally deleted objects (such as users and groups) without restoring from a backup.</p>
+</li>
+</ul>
+<h2 id="windows-server-2012">Windows Server 2012:</h2>
+<ul>
+<li>
+<p>Dynamic Access Control (DAC): Provides more granular access control based on user attributes and security policies.</p>
+</li>
+<li>
+<p>Kerberos Armoring: Strengthens Kerberos authentication.</p>
+</li>
+</ul>
+<h2 id="windows-server-2012-r2">Windows Server 2012 R2:</h2>
+<ul>
+<li>Improved Kerberos Authentication: Additional security features like shadow principals for resource forests.</li>
+</ul>
+<h2 id="windows-server-2016-highest-available-ffl">Windows Server 2016 (highest available FFL):</h2>
+<ul>
+<li>
+<p>Privileged Access Management (PAM): Allows for time-limited privileged access using Microsoft Identity Manager.</p>
+</li>
+<li>
+<p>Azure AD integration: Enhanced support for hybrid identity setups involving both on-premises AD and Azure AD.</p>
+</li>
+</ul>
+<p>**Important Considerations:</p>
+<ul>
+<li>
+<p>Raising the FFL is permanent: You cannot lower the functional level once it is raised.</p>
+</li>
+<li>
+<p>All domain controllers must be compatible: Before raising the FFL, ensure that all domain controllers are running at least the minimum Windows Server version required for the new functional level.</p>
+</li>
+<li>
+<p>New features become available: Some advanced Active Directory features, like the Active Directory Recycle Bin or Privileged Access Management, require a higher FFL to function.</p>
+</li>
+</ul>
+<h2 id="when-to-raise-the-forest-functional-level">When to Raise the Forest Functional Level:</h2>
+<p>You should raise the FFL when:</p>
+<ul>
+<li>
+<p>All domain controllers in the forest are running a compatible Windows Server version (e.g., Windows Server 2016 or higher).</p>
+</li>
+<li>
+<p>You want to take advantage of new features and security enhancements introduced in newer functional levels.</p>
+</li>
+</ul>
+<p>For our Functional level we will choose <strong>2016</strong></p>
+<p>Next is the Domain Function level:</p>
+<h2 id="what-are-domain-functional-levels-dfl">What Are Domain Functional Levels (DFL)?</h2>
+<p>The Domain Functional Level (DFL) determines the set of advanced features available in a particular Active Directory domain. It also specifies the minimum version of Windows Server that domain controllers in the domain can run. Higher functional levels unlock additional Active Directory features, but to raise the DFL, all domain controllers in the domain must be running a Windows Server version that supports the chosen functional level.</p>
+<h2 id="key-points-about-domain-functional-levels">Key Points About Domain Functional Levels:</h2>
+<ul>
+<li>
+<p>Compatibility: DFL defines the minimum Windows Server version required for all domain controllers in a domain. For instance, if the DFL is set to Windows Server 2016, then all domain controllers must be running Windows Server 2016 or later.</p>
+</li>
+<li>
+<p>Feature Availability: Higher domain functional levels enable more advanced Active Directory features. As you raise the DFL, new features become available, but older domain controllers that do not meet the functional level requirements can no longer be used.</p>
+</li>
+<li>
+<p>Per-Domain Setting: The DFL is specific to each domain. Multiple domains within the same forest can operate at different functional levels, but no domain can have a functional level higher than the forest's functional level (FFL).</p>
+</li>
+<li>
+<p>Permanent Change: Raising the DFL is a one-way operation—you can raise it, but you cannot lower it without restoring the domain from a backup. This ensures that all domain controllers are upgraded before the new functionality is introduced.</p>
+</li>
+</ul>
+<h2 id="available-domain-functional-levels-and-their-features">Available Domain Functional Levels and Their Features:</h2>
+<p>Here is a list of the available DFLs and the key features they introduce:</p>
+<h2 id="windows-2000-native_1">Windows 2000 Native:</h2>
+<ul>
+<li>
+<p>Basic Active Directory features such as Organizational Units (OUs), Group Policy, and Universal Groups.</p>
+</li>
+<li>
+<p>Domain controllers can run Windows 2000 or higher.</p>
+</li>
+</ul>
+<h2 id="windows-server-2003_1">Windows Server 2003:</h2>
+<ul>
+<li>
+<p>Linked Value Replication (LVR): Reduces replication traffic by replicating changes to individual group members instead of the entire group.</p>
+</li>
+<li>
+<p>Improved password policies: Supports fine-grained password and account lockout policies for different sets of users.
+Last logon timestamp attribute: Tracks the last time a user successfully authenticated in the domain.</p>
+</li>
+<li>
+<p>Domain controllers must run Windows Server 2003 or higher.</p>
+</li>
+</ul>
+<h2 id="windows-server-2008_1">Windows Server 2008:</h2>
+<ul>
+<li>
+<p>Read-only Domain Controllers (RODCs): Allows for domain controllers with read-only copies of Active Directory, useful in less secure locations.</p>
+</li>
+<li>
+<p>DFS Replication for SYSVOL: Replaces the older File Replication Service (FRS) with DFS Replication for better performance and reliability.</p>
+</li>
+<li>
+<p>Domain controllers must run Windows Server 2008 or higher.</p>
+</li>
+</ul>
+<h2 id="windows-server-2008-r2">Windows Server 2008 R2:</h2>
+<ul>
+<li>
+<p>Active Directory Recycle Bin: Enables administrators to restore deleted AD objects (users, groups, etc.) without needing to restore from a backup.</p>
+</li>
+<li>
+<p>Authentication Mechanism Assurance: Adds the ability to enforce more stringent security policies based on the method of authentication.</p>
+</li>
+<li>
+<p>Domain controllers must run Windows Server 2008 R2 or higher.</p>
+</li>
+</ul>
+<h2 id="windows-server-2012_1">Windows Server 2012:</h2>
+<ul>
+<li>
+<p>Dynamic Access Control (DAC): Provides more flexible access control policies that are based on user attributes (claims-based access control).</p>
+</li>
+<li>
+<p>Kerberos Armoring: Provides stronger security for Kerberos authentication, preventing certain types of attacks.</p>
+</li>
+<li>
+<p>Domain controllers must run Windows Server 2012 or higher.</p>
+</li>
+</ul>
+<h2 id="windows-server-2012-r2_1">Windows Server 2012 R2:</h2>
+<ul>
+<li>
+<p>Improved Kerberos Authentication: Adds claims-based authentication, which allows for more granular and flexible control over resource access.</p>
+</li>
+<li>
+<p>Domain controllers must run Windows Server 2012 R2 or higher.</p>
+</li>
+</ul>
+<h2 id="windows-server-2016-highest-available-functional-level">Windows Server 2016 (Highest available functional level):</h2>
+<ul>
+<li>
+<p>Privileged Access Management (PAM): Provides mechanisms to control and monitor privileged administrative access with time-bound access controls.</p>
+</li>
+<li>
+<p>Improved security features: Better security auditing, protection from credential theft, and stronger encryption protocols between domain controllers and clients.</p>
+</li>
+</ul>
+<h2 id="domain-controllers-must-run-windows-server-2016-or-higher">Domain controllers must run Windows Server 2016 or higher.</h2>
+<h3 id="windows-server-2019-2022">Windows Server 2019 / 2022:</h3>
+<ul>
+<li>
+<p>No new DFL introduced: Windows Server 2019 and Windows Server 2022 continue to use the Windows Server 2016 DFL as the highest available functional level. These newer server versions introduce performance and security enhancements but do not require a new domain functional level.</p>
+</li>
+<li>
+<p>Domain controllers can run Windows Server 2019 or Windows Server 2022, but the functional level remains at Windows Server 2016.</p>
+</li>
+</ul>
+<p>Okay, I'm you've probably scrolled through all of that block of text, but I figured I'd add it there just in case you were curious what the forest and domain functional levels. 
+However, just to recap we will be be selecting <strong><em>2016</em>* for both the </strong>Forest functional level<strong> and </strong>Domain functional level**</p>
+<p>Another option is the <strong>Specific domain controller capabilities</strong>, notice that it pre-checked <strong>Domain Name System (DNS) server</strong> and <strong>Global Catalog (GC)</strong>. You're able to uncheck DNS if you want to but I would advise you not too, a domain controller heavily relies on the DNS service to perform most of it's duties, if you were to uncheck <strong>DNS</strong> from the list of options, your installation will fail. The other option <strong>Global Catalog</strong> here's some information about the <strong>Global Catalog</strong> feature. </p>
+<h2 id="global-catalog">Global Catalog</h2>
+<p>In Active Directory (AD), the Global Catalog (GC) is a distributed data repository that contains a partial, read-only copy of all objects from every domain in the forest. The Global Catalog is designed to help users and applications find and access directory information across multiple domains within a forest quickly, without the need to contact each domain individually.</p>
+<h3 id="key-features-of-the-global-catalog">Key Features of the Global Catalog:</h3>
+<h3 id="partial-attribute-set">Partial Attribute Set:</h3>
+<ul>
+<li>
+<p>The Global Catalog doesn’t store a complete copy of every object. Instead, it stores a subset of attributes, known as the partial attribute set. This subset includes attributes that are most frequently used in search queries, such as a user’s first name, last name, email address, and group membership.</p>
+</li>
+<li>
+<p>Each domain controller that hosts the Global Catalog holds the partial attribute set for all objects in every domain of the forest, not just the domain it belongs to.</p>
+</li>
+</ul>
+<h3 id="full-copies-of-local-domain-data">Full Copies of Local Domain Data:</h3>
+<ul>
+<li>For the domain in which a Global Catalog server resides, the Global Catalog contains a full copy of all objects and their attributes. This ensures that domain controllers can still perform full queries for objects in their own domain without needing to refer to another domain controller.</li>
+</ul>
+<h3 id="global-search">Global Search:</h3>
+<ul>
+<li>One of the main functions of the Global Catalog is to provide an efficient search mechanism across all domains in the forest. When a user or application searches for an object (such as another user or printer), the Global Catalog allows the search to include all domains in the forest without needing to contact every domain controller separately.</li>
+</ul>
+<h3 id="authentication">Authentication:</h3>
+<ul>
+<li>The Global Catalog plays an important role in user logon. When a user logs into a domain, the domain controller checks the user’s membership in universal groups, which may be stored in other domains. The Global Catalog provides this information quickly, enabling the logon process to complete even if the user belongs to universal groups from other domains.
+If the Global Catalog is unavailable, users may experience issues logging into the domain, especially if they belong to groups that span multiple domains.</li>
+</ul>
+<h3 id="universal-group-membership-caching">Universal Group Membership Caching:</h3>
+<ul>
+<li>The Global Catalog contains information about universal groups in the forest. Universal groups can contain members from any domain within the forest, so storing membership details in the Global Catalog makes it possible to resolve group memberships without needing to contact every domain individually.</li>
+</ul>
+<h3 id="location-of-global-catalog-servers">Location of Global Catalog Servers:</h3>
+<ul>
+<li>
+<p>Global Catalog Servers are domain controllers that have been specifically configured to hold the Global Catalog. Not every domain controller in a forest has to be a Global Catalog server, but it's common to have at least one Global Catalog server per site for performance and redundancy.</p>
+</li>
+<li>
+<p>By default, the first domain controller in a forest is configured as a Global Catalog server. Additional domain controllers can be designated as Global Catalog servers as needed.</p>
+</li>
+</ul>
+<h3 id="why-is-the-global-catalog-important">Why Is the Global Catalog Important?</h3>
+<ul>
+<li>
+<p>Forest-Wide Searches: The Global Catalog allows users to search for resources (such as users, computers, and printers) across all domains within the forest. Without the Global Catalog, users would have to query domain controllers for each domain individually to find what they are looking for.</p>
+</li>
+<li>
+<p>Faster Authentication: The Global Catalog is critical during the logon process because it stores universal group memberships. When a user logs in, their group memberships are checked, and the Global
+Catalog provides that information. If no Global Catalog server is available, logging in may fail or be delayed.</p>
+</li>
+<li>
+<p>Multi-Domain Environments: In environments where there are multiple domains in a forest, the Global Catalog provides a way to efficiently handle directory searches and group membership queries across domains. It simplifies the process by storing key information about objects across the entire forest in one place.</p>
+</li>
+</ul>
+<h3 id="global-catalog-and-domain-controllers">Global Catalog and Domain Controllers:</h3>
+<ul>
+<li>
+<p>Global Catalog servers are a special role that can be assigned to domain controllers. Not all domain controllers need to be Global Catalog servers, but it's recommended to have at least one in each Active Directory site to ensure high availability and quick directory searches.</p>
+</li>
+<li>
+<p>To make a domain controller a Global Catalog server, you can enable the Global Catalog feature via the Active Directory Sites and Services tool.</p>
+</li>
+</ul>
+<h3 id="how-the-global-catalog-works">How the Global Catalog Works:</h3>
+<ul>
+<li>The Global Catalog contains:<ul>
+<li>A full replica of all objects and attributes in its own domain.</li>
+<li>A partial replica (subset of key attributes) for objects in all other domains in the forest.</li>
+</ul>
+</li>
+</ul>
+<p>When a user or application performs a global search, such as looking for all users with a particular attribute, the Global Catalog server provides the relevant information without needing to query domain controllers in each domain individually.</p>
+<h3 id="key-attributes-stored-in-the-global-catalog">Key Attributes Stored in the Global Catalog:</h3>
+<p>Some of the key attributes stored in the Global Catalog include:</p>
+<ul>
+<li>
+<p>User attributes such as first name, last name, email address.</p>
+</li>
+<li>
+<p>Computer object attributes such as name and location.</p>
+</li>
+<li>
+<p>Universal group memberships.</p>
+</li>
+</ul>
+<p>The Active Directory schema defines which attributes are stored in the Global Catalog. By default, frequently searched attributes are included, but administrators can modify the schema to add or remove attributes from the Global Catalog.</p>
+<h3 id="benefits-of-the-global-catalog">Benefits of the Global Catalog:</h3>
+<ul>
+<li>
+<p>Efficient Searches: Allows users and applications to search for directory information across multiple domains without needing to contact every domain controller.</p>
+</li>
+<li>
+<p>Faster Logon Process: Provides quick access to universal group membership information during user logon, enabling faster authentication.</p>
+</li>
+<li>
+<p>Simplifies Multi-Domain Queries: For large forests with multiple domains, the Global Catalog greatly simplifies and speeds up directory queries by storing a partial copy of objects from all domains.</p>
+</li>
+</ul>
+<h3 id="considerations">Considerations:</h3>
+<ul>
+<li>
+<p>Availability: It’s a good practice to ensure there’s a Global Catalog server in each Active Directory site to avoid issues with logon and directory queries, especially in large, multi-domain environments.</p>
+</li>
+<li>
+<p>Network Traffic: Global Catalog replication can increase network traffic since the Global Catalog needs to be updated across domains whenever an object or attribute in the forest changes.</p>
+</li>
+</ul>
+<h3 id="example-scenario">Example Scenario:</h3>
+<p>If you have two domains in your forest, infotech.ca and prblabs.ca, and a user from infotech.ca needs to search for a user or resource in prblabs.ca, they would contact a Global Catalog server. The Global Catalog server would provide the necessary information about objects in prblabs.ca without needing to query a domain controller in prblabs.ca directly, making the search process faster and more efficient.</p>
+<p>The last option we have that is greyed out is <strong>Read only domain controller (RODC)</strong>. Here is some information about the RODC:</p>
+<p>A <strong>Read-Only Domain Controller (RODC)</strong> is a special type of domain controller in Active Directory introduced in Windows Server 2008. Unlike a traditional writable domain controller, an RODC contains a read-only copy of the Active Directory database, which means that it does not allow changes to be made directly on it. Any changes that need to be made to the Active Directory database (such as password updates, group changes, etc.) must be sent to a writable domain controller.</p>
+<p>RODCs are designed for use in environments where security is a concern, or in locations where physical security or connectivity to the network is less reliable, such as branch offices. They provide many of the benefits of a traditional domain controller, such as authenticating logon requests and servicing queries, but with added security restrictions.</p>
+<h2 id="key-features-of-an-rodc">Key Features of an RODC:</h2>
+<h2 id="read-only-active-directory-database">Read-Only Active Directory Database:</h2>
+<ul>
+<li>
+<p>The Active Directory database on an RODC is read-only, meaning it cannot accept or process updates. Any changes made to AD objects must be forwarded to a writable domain controller, which then replicates the updates back to the RODC.</p>
+</li>
+<li>
+<p>This limits the potential for accidental or malicious changes to the Active Directory database on the RODC.</p>
+</li>
+</ul>
+<h2 id="credential-caching">Credential Caching:</h2>
+<ul>
+<li>
+<p>By default, an RODC does not store user or computer credentials (passwords) locally. However, specific credentials can be cached on the RODC to allow for faster logon processes, particularly useful in remote locations where WAN connections to a writable domain controller might be slow or unreliable.</p>
+</li>
+<li>
+<p>You can control which user or group credentials are cached using a feature called Password Replication Policy (PRP). This allows administrators to specify which accounts’ credentials are allowed to be stored on the RODC, adding an extra layer of security.</p>
+</li>
+</ul>
+<h2 id="improved-security-in-less-secure-locations">Improved Security in Less Secure Locations:</h2>
+<ul>
+<li>
+<p>The RODC is particularly useful in environments where physical security may be compromised, such as branch offices or remote sites. Since it only contains a read-only copy of the AD database, any compromise of the RODC does not allow an attacker to make changes directly to Active Directory.</p>
+</li>
+<li>
+<p>If an RODC is stolen or compromised, no changes can be made to the Active Directory environment, and the credential data stored on it is limited.</p>
+</li>
+</ul>
+<h2 id="unidirectional-replication">Unidirectional Replication:</h2>
+<ul>
+<li>Replication between an RODC and a writable domain controller is unidirectional. The RODC receives updates from a writable domain controller but does not replicate changes back to the writable domain controller. This means that any changes made locally on the RODC (if somehow attempted) will not affect the writable domain controllers in the environment.</li>
+</ul>
+<p>Administrator Role Separation:</p>
+<ul>
+<li>RODCs allow for administrator role separation, which means that you can delegate local administration of the RODC to non-domain administrators without giving them full domain administrator rights. This is useful in scenarios where local IT staff need to manage the RODC but should not have broader privileges within the domain.</li>
+</ul>
+<h3 id="key-benefits-of-an-rodc">Key Benefits of an RODC:</h3>
+<p>Enhanced Security for Remote or Less Secure Locations:</p>
+<ul>
+<li>
+<p>Since the RODC holds only a read-only copy of the Active Directory database and can limit credential caching, it reduces the risk of data compromise in environments where physical or network security cannot be guaranteed.</p>
+</li>
+<li>
+<p>Even if an RODC is physically compromised, attackers cannot modify the AD database or elevate privileges on the domain.</p>
+</li>
+</ul>
+<h3 id="reduced-risk-of-credential-exposure">Reduced Risk of Credential Exposure:</h3>
+<ul>
+<li>By using Password Replication Policies (PRP) to control which credentials are cached locally, you can ensure that only a subset of users’ credentials are stored on the RODC, minimizing the risk if the RODC is compromised.</li>
+</ul>
+<h3 id="local-authentication-without-full-dc">Local Authentication Without Full DC:</h3>
+<ul>
+<li>In remote sites with poor network connectivity, an RODC can provide local authentication and authorization for users, even if the connection to a writable domain controller is slow or intermittent. Cached credentials enable users to authenticate even if the RODC temporarily loses connection to the main network.</li>
+</ul>
+<h3 id="delegated-administration">Delegated Administration:</h3>
+<ul>
+<li>The ability to delegate local administration to non-domain administrators (without giving them access to the full Active Directory infrastructure) is beneficial for branch offices where IT staff need to perform maintenance on the RODC but should not have broader access rights.</li>
+</ul>
+<h2 id="password-replication-policy-prp">Password Replication Policy (PRP):</h2>
+<p>A Password Replication Policy (PRP) defines which user and computer credentials are allowed to be cached on the RODC. By default, an RODC does not cache any credentials unless explicitly allowed via PRP. This helps prevent credential theft in the event that an RODC is compromised.</p>
+<ul>
+<li>
+<p>Allowed List: Specifies which user accounts or computer accounts can have their credentials cached on the RODC.</p>
+</li>
+<li>
+<p>Denied List: Specifies which user or computer credentials can never be cached on the RODC. This typically includes sensitive accounts like domain admins, enterprise admins, and server administrators.</p>
+</li>
+</ul>
+<h2 id="use-cases-for-rodc">Use Cases for RODC:</h2>
+<h3 id="branch-offices">Branch Offices:</h3>
+<ul>
+<li>RODCs are ideal for branch offices where there might be limited IT staff and less secure infrastructure. They provide local authentication and replication while mitigating risks associated with physical security breaches.</li>
+</ul>
+<h3 id="remote-locations-with-poor-connectivity">Remote Locations with Poor Connectivity:</h3>
+<ul>
+<li>In areas where network connectivity to a writable domain controller might be unreliable or slow, an RODC can serve as a local domain controller, caching credentials and servicing logon requests without requiring continuous access to the central AD infrastructure.</li>
+</ul>
+<h3 id="edge-environments-or-dmzs">Edge Environments or DMZs:</h3>
+<ul>
+<li>RODCs can be deployed in a perimeter network (DMZ) to allow secure access to the network for certain services without exposing the writable domain controller to potential external threats.</li>
+</ul>
+<p>The reason why the RODC option is currently unchecked is mostly because we currently don't have a primary domain controller. The Primary Domain Controller is usually the first domain controller, however, any domain controller can be the primary as long as they hold the 5 FMSO roles.</p>
+<p>Your last option is the create a <strong>Type the Directory Services Restore Mode (DSRM) password</strong>. Some short information about this: </p>
+<p><em>The Directory Services Restore Mode (DSRM) password is a special password used in Active Directory (AD) environments. It is required when you need to boot a domain controller into Directory Services Restore Mode (DSRM), a special recovery mode for performing maintenance and repair tasks on the Active Directory database.</em></p>
+<p>I will be creating a password here then I will click next.</p>
+<p><a href="../dc-01_install/adds13.jpg"><img alt="Select creation type" src="../dc-01_install/adds13.jpg" /></a></p>
+<p>Click next will bring you to <strong>Specify DNS delegation options</strong> If you click on Show more you will see the following message:</p>
+<p><a href="../dc-01_install/adds14.jpg"><img alt="Select creation type" src="../dc-01_install/adds14.jpg" /></a></p>
+<p>This isn't anything to be alarmed about. It's basically saying that it's trying to create something in DNS, but we currently don't have DNS installed, however the installation will solve this issue for us. Click <strong>Next</strong> to proceed.</p>
+<p><a href="../dc-01_install/adds15.jpg"><img alt="Select creation type" src="../dc-01_install/adds15.jpg" /></a></p>
+<p>It will then automatically create a NetBios name for you. NetBIOS (Network Basic Input/Output System) is a legacy networking protocol that provides communication services for applications on a local network (LAN). It was developed in the early 1980s by IBM and Sytek and was designed to allow computers to communicate with each other over small, local networks. Although it is not used as much today in modern networks, it still has some legacy applications, especially in older versions of Windows and in environments where backward compatibility is necessary.</p>
+<p>It will automatically create a NetBios name for us. I usually leave this as the default. Unless I need to change this for a specific reason.</p>
+<p><a href="../dc-01_install/adds16.jpg"><img alt="Select creation type" src="../dc-01_install/adds16.jpg" /></a></p>
+<p>Next it will ask us to <strong>Specify the location of the AD DS database, log files and SYSVOL</strong>. I usually leave these as the default. Unless I would want to store these on a remote server somewhere. I will click <strong>Next</strong></p>
+<p><a href="../dc-01_install/adds17.jpg"><img alt="Select creation type" src="../dc-01_install/adds17.jpg" /></a></p>
+<p>The installation will give you a <strong>Review Options</strong> screen where you can go through your selections to ensure what you choose is what you want. You can click on the <strong>View script</strong> option that will show you some powershell commands for you to automate the installation. I will save it for my next server. Then I will click <strong>Next</strong></p>
+<p><a href="../dc-01_install/adds18.jpg"><img alt="Select creation type" src="../dc-01_install/adds18.jpg" /></a></p>
+<p>The Third (3rd) to last screen will bring you to the <strong>Prequisites Check</strong> where it will ensure that your Windows Server meets of the requirements to become a Domain Controller. If there is any issues, your check will fail and you will see a few error messages with some action items. Usually you will have a few warnings, but these is standard, they installation will still proceed with the even if the warnings are not resolved. There is also a message at the bottom that tell you <strong>If you click install, the server automatically reboots at the end of the promotion operations.</strong> I'm working on a test Virtual Machine in my situation but if this was a server in production and you always need to give notice prior to reboot a server you will need to ensure the correct parties are notified. Lastly I will click <strong>Install</strong></p>
+<p><a href="../dc-01_install/adds19.jpg"><img alt="Select creation type" src="../dc-01_install/adds19.jpg" /></a></p>
+<p>Once your installation is successful, the server will automatically reboot and it will bring you to a login screen. You can sign in with the same password you had before. Once to note about a Domain Controller is that the concept of Local Users no longer exist on a Domain Controller. What happens is that all of your accounts are now Domain Accounts that are managed by your Domain Controller. Once your DC reboots and you're back at the login screen, you will have to type CTRL+ALT+DEL for you to be able to type in your password. Another thing to log is that the account you're logging into is called <strong>PRBLABS\Administrator</strong> remember <strong>prblabs.ca</strong> was the name I chose for my Domain Controller. For now I will login with my password to proceed. I will enter my password and press enter.</p>
+<p><a href="../dc-01_install/adds20.jpg"><img alt="Select creation type" src="../dc-01_install/adds20.jpg" /></a></p>
+<p>As long as my credentials is correct, I will be logged into my Server's Desktop and as usual the Server Manage Dashboard will automatically load. If you're wondering if there's a way to have the Server Manager not come up, yes there is. You have to Click on <strong>Manage &gt; Server Manager Properties</strong> and check the box for <strong>Do no start Server Manager automatically at logon</strong></p>
+<p><a href="../dc-01_install/adds21.jpg"><img alt="Select creation type" src="../dc-01_install/adds21.jpg" /></a></p>
+<p><a href="../dc-01_install/adds22.jpg"><img alt="Select creation type" src="../dc-01_install/adds22.jpg" /></a></p>
+<h2 id="verifying-your-windows-server-is-a-domain-controller">Verifying your Windows Server is a Domain Controller</h2>
+<p>Okay so you've just promoted your computer to be a <strong>Domain Controller</strong> but how do you know that your computer is indeed a <strong>Domain Controller</strong>. Here's a few ways to get that information.</p>
+<p>You can open up command prompt and type the following command: </p>
+<p><div class="highlight"><pre><span></span><code>nltest/dsgetdc:&lt;domain_name&gt;
+</code></pre></div>
+For my domain it will look like the following:</p>
+<p><div class="highlight"><pre><span></span><code>nltest /dsgetdc:prblabs.ca
+</code></pre></div>
+You can see from the results, my <strong>DC</strong> is \dc-01.prblabs.ca which is the name of my Windows Server.</p>
+<p><a href="../dc-01_install/adds23.jpg"><img alt="Select creation type" src="../dc-01_install/adds23.jpg" /></a></p>
+<p>Something else you can is the tools your Windows Server has installed. Usually Active Directory Comes with a few unique tools that's used to manage Active Directory. These are:</p>
+<ul>
+<li>
+<p>Active Directory Users and Computers</p>
+</li>
+<li>
+<p>Active Directory Domains and Trust</p>
+</li>
+<li>
+<p>Active Directory Sites and Services</p>
+</li>
+<li>
+<p>Active Directory Module for Windows PowerShell</p>
+</li>
+<li>
+<p>Active Directory Administrative Center</p>
+</li>
+<li>
+<p>Group Policy Management</p>
+</li>
+</ul>
+<p>You might have recalled that we also installed the DNS server, however all Domain Controllers are DNS servers but not all DNS servers are Domain Controller. You can have a standalone DNS server without the Active Directory Roles installed.</p>
+<p><a href="../dc-01_install/adds24.jpg"><img alt="Select creation type" src="../dc-01_install/adds24.jpg" /></a></p>
+<p>Next you can open powershell as an Administrator and run the following command</p>
+<div class="highlight"><pre><span></span><code>Get-ADDomainController
+</code></pre></div>
+<p>And you show see the following results</p>
+<p><a href="../dc-01_install/adds25.jpg"><img alt="Select creation type" src="../dc-01_install/adds25.jpg" /></a></p>
+<p>From here you should see <strong>Hostname: DC-01.prblabs.ca</strong> which indicates that this server is indeed a <strong>Domain Controller</strong></p>
+<h2 id="creating-a-domain-user-account">Creating a Domain User Account</h2>
+<p>Okay, usually the first thing I like to do after I create a new Active Directory Domain is to create a user account that I will use for my Domain Operations.</p>
+<p>I can do that in the following ways.</p>
+<p>Open up <strong>Server Manager</strong> if you don't have it already. Click on <strong>Tools</strong> then <strong>Active Directory Users and Computers</strong></p>
+<p><a href="../dc-01_install/adds26.jpg"><img alt="Select creation type" src="../dc-01_install/adds26.jpg" /></a></p>
+<p><strong>Active Directory Users and Computers</strong> should now open up for you. It looks like this:</p>
+<p><a href="../dc-01_install/adds27.jpg"><img alt="Select creation type" src="../dc-01_install/adds27.jpg" /></a></p>
+<p>From here you can my Domain <strong>prblabs.ca</strong> and I'm able to expand that by click on the triangle next to my domain name</p>
+<p><a href="../dc-01_install/adds28.jpg"><img alt="Select creation type" src="../dc-01_install/adds28.jpg" /></a></p>
+<p>From here, you should see the default structure of Active Directory Users and Computers. Here's some information about the <strong>Active Directory Users and Computers</strong> console:</p>
+<p>Active Directory Users and Computers (ADUC) is a Microsoft Management Console (MMC) snap-in used for managing objects within an Active Directory (AD) domain. It provides a graphical interface that allows administrators to manage and organize resources like users, computers, groups, and organizational units (OUs) in a domain.</p>
+<h2 id="key-features-of-aduc">Key Features of ADUC:</h2>
+<h3 id="user-management">User Management:</h3>
+<ul>
+<li>
+<p>Create, modify, and manage user accounts.</p>
+</li>
+<li>
+<p>Set user properties, such as passwords, group memberships, logon hours, and account expiration.</p>
+</li>
+</ul>
+<h3 id="computer-management">Computer Management:</h3>
+<ul>
+<li>
+<p>Add and manage computer accounts in the domain.</p>
+</li>
+<li>
+<p>Organize computers into Organizational Units (OUs) for easier management and policy application.</p>
+</li>
+</ul>
+<h3 id="group-management">Group Management:</h3>
+<ul>
+<li>Create and manage security and distribution groups to control resource access and email distribution.</li>
+</ul>
+<p>Organizational Units (OUs):</p>
+<ul>
+<li>OUs are containers that help organize and structure resources (users, computers, etc.) in the domain. You can apply Group Policies to OUs for centralized management.</li>
+</ul>
+<h3 id="delegate-administrative-control">Delegate Administrative Control:</h3>
+<ul>
+<li>ADUC allows you to delegate specific administrative tasks to users or groups without giving them full domain administrator privileges.</li>
+</ul>
+<h3 id="active-directory-search">Active Directory Search:</h3>
+<ul>
+<li>You can use ADUC to search for and locate objects (users, computers, etc.) across the entire domain or within specific OUs.</li>
+</ul>
+<h3 id="typical-use-cases">Typical Use Cases:</h3>
+<ul>
+<li>
+<p>Creating and managing user accounts (e.g., adding a new employee).</p>
+</li>
+<li>
+<p>Organizing resources into OUs for better management.</p>
+</li>
+<li>
+<p>Assigning group memberships to manage access to resources.</p>
+</li>
+<li>
+<p>Resetting passwords and unlocking user accounts.</p>
+</li>
+</ul>
+<p>The folders you see there aren't really folders. They are called: Organizational Units (OU) and they can used as a container for all of your Active Directory Objects like user accounts, group accounts and computer accounts. Let's create a new Organizational Unit (OU) under our <strong>prblabs.ca</strong> domain.</p>
+<p>We'll right click on prblabs.ca and can choose:</p>
+<p><a href="../dc-01_install/adds29.jpg"><img alt="Select creation type" src="../dc-01_install/adds29.jpg" /></a></p>
+<p>I'll name my new Organization Unit <strong>prbUsers</strong> because this is where I'm going to store all of my new user accounts. I'll click <strong>OK</strong> once I'm done.</p>
+<p><a href="../dc-01_install/adds30.jpg"><img alt="Select creation type" src="../dc-01_install/adds30.jpg" /></a></p>
+<p>Once I click OK, my new Organizational Unit is create and I can begin using. After creation my OU will appear below Users but the Active Directory organizes all of it's OUs by alphabetical order so if I were to refresh or close Active Directory and re-open it since <strong>P</strong> comes before <strong>U</strong>, you will see prbUsers above Users.</p>
+<p><a href="../dc-01_install/adds31.jpg"><img alt="Select creation type" src="../dc-01_install/adds31.jpg" /></a></p>
+<h2 id="creating-an-active-directory-user-account">Creating an Active Directory User account</h2>
+<p>To create my first user account I will right-click on my <strong>prbUsers Organizational Unit</strong> then click <strong>New</strong> then <strong>User</strong></p>
+<p><a href="../dc-01_install/adds32.jpg"><img alt="Select creation type" src="../dc-01_install/adds32.jpg" /></a></p>
+<p>From here the <strong>New Object - User</strong> box comes up and I will add the following information</p>
+<ul>
+<li><strong>First Name</strong>: Prb</li>
+<li><strong>Last Name</strong>: Admin </li>
+<li><strong>Full Name</strong> Prb Admin</li>
+<li><strong>User logon name</strong>: prbadmin</li>
+</ul>
+<p>The User logon name (pre-Windows 2000) will automatically be generated when you add the <strong>User logon name</strong>. Click next will ask me to create a password, here I have a few more options:</p>
+<ul>
+<li>User must change password at next logon:</li>
+<li>User cannot change password: </li>
+<li>Password never expires</li>
+<li>Account is disable</li>
+</ul>
+<p>I will uncheck all of these boxes because I do not need any of these options and click <strong>Next</strong> then <strong>Finish</strong></p>
+<p><a href="../dc-01_install/adds33.jpg"><img alt="Select creation type" src="../dc-01_install/adds33.jpg" /></a></p>
+<p><a href="../dc-01_install/adds34.jpg"><img alt="Select creation type" src="../dc-01_install/adds34.jpg" /></a></p>
+<p><a href="../dc-01_install/adds35.jpg"><img alt="Select creation type" src="../dc-01_install/adds35.jpg" /></a></p>
+<p>Perfect, I've just created a user account. Cool, but what can I do it with? Well a <strong>Domain account</strong> like the one we just created will allow me to log into a <strong>Domain Computer</strong>. If your next questions is what is a <strong>Domain computer?</strong>. Well, it's a computer that is joined to the <strong>Active Directory Domain</strong>. You can see me domain my 2nd domain controller dc-02 to my Active Directory Domain here: <a href="../dc-02/">DC-02 - Joining Domain</a>. I will explain more about what I can do with my <strong>Domain account</strong> but first I would like to add my account to two <strong>Security Groups</strong> these are: <strong>Domain Admin</strong> and <strong>Enterprise Admin</strong>. </p>
+<p>I do this by right clicking on my <strong>Prb Admin</strong> then click <strong>Properties</strong>:</p>
+<p><a href="../dc-01_install/adds36.jpg"><img alt="Select creation type" src="../dc-01_install/adds36.jpg" /></a></p>
+<p>and click the <strong>MemberOf</strong> tab:</p>
+<p><a href="../dc-01_install/adds37.jpg"><img alt="Select creation type" src="../dc-01_install/adds37.jpg" /></a></p>
+<p>Then click the <strong>Add</strong> button:</p>
+<p><a href="../dc-01_install/adds38.jpg"><img alt="Select creation type" src="../dc-01_install/adds38.jpg" /></a></p>
+<p>Then type in <strong>Domain Admins</strong> in the <strong>Enter the object names to select (examples):</strong></p>
+<p><a href="../dc-01_install/adds39.jpg"><img alt="Select creation type" src="../dc-01_install/adds39.jpg" /></a></p>
+<p>From where I will click <strong>Check Names</strong> and then Click OK. I will repeat the process to add the <strong>Enterprise Admins</strong> group as well.</p>
+<p><a href="../dc-01_install/adds40.jpg"><img alt="Select creation type" src="../dc-01_install/adds40.jpg" /></a></p>
+<p>From there I will click <strong>Apply</strong> and then <strong>OK</strong></p>
+<p><a href="../dc-01_install/adds41.jpg"><img alt="Select creation type" src="../dc-01_install/adds41.jpg" /></a></p>
+<p>Perfect and we're done. We've just created an <strong>Domain Account</strong> and we've added this account to be the <strong>Domain Admins</strong> and <strong>Enterprise Admins</strong> security groups.</p>
+<p>Here's how you can do the exact same thing in powershell.</p>
+<p>First we'll click on our Start Menu and open up <strong>Active Directory Module for Windows Powershell</strong>. If you're wondering what's the difference between this and the regular powershell. This special powershell session comes with Active Directory commands pre-load, so we can use this special version of powershell to manage our Active Directory session. You can also launch regular powershell and load the Active Directory Module from there.</p>
+<p><a href="../dc-01_install/adds42.jpg"><img alt="Select creation type" src="../dc-01_install/adds42.jpg" /></a></p>
+<div class="highlight"><pre><span></span><code>New-ADUser -Name &quot;Prb User1&quot; -GivenName &quot;PRB&quot; -Surname &quot;User&quot; -SamAccountName &quot;prbuser1&quot; -UserPrincipalName &quot;prbuser1@yourdomain.com&quot; -Path &quot;CN=Users,DC=yourdomain,DC=com&quot; -AccountPassword (ConvertTo-SecureString &quot;Winter2024!&quot; -AsPlainText -Force) -Enabled $true
+</code></pre></div>
+<p><a href="../dc-01_install/adds43.jpg"><img alt="Select creation type" src="../dc-01_install/adds43.jpg" /></a></p>
+<p>Then back in Active Directory Users and Computer we might need to refresh the Window to see our new user account.</p>
+<p><a href="../dc-01_install/adds44.jpg"><img alt="Select creation type" src="../dc-01_install/adds44.jpg" /></a></p>
+<p>Once the refresh is completed, we should see our new user account inside of Active Directory:</p>
+<p><a href="../dc-01_install/adds45.jpg"><img alt="Select creation type" src="../dc-01_install/adds45.jpg" /></a></p>
+<p>Okay, I think I will end it here. I might have overloaded this section with a lot of information but I felt like the information was needed to get an idea of what's going on. It's nice to follow a tutorial to get something done but if you don't know what you're doing you might run into some issues the next time you have to do it on your own.</p>
+<p>This was just our first stop for our Windows Servers. Next up we will be creating a Secondary Domain Controller called: DC-02. You can find that information here: <a href="../dc-02/">DC-02</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant.prefetch", "navigation.instant.progress", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>
