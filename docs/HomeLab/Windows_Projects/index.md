@@ -1,6 +1,6 @@
 # Welcome to the World of Windows Server
 
-If you've been a using Windows as your main desktop for a long time you might have at some point come across the term **Windows Server**. If you didn't bother looking it up at the time I will tell you now. **Windows Server** is an operation system that is feature rich and is specifically designed to provide servers in networking, storage, authentication and users.
+If you've been a using Windows as your main desktop for a long time you might have at some point come across the term **Windows Server**. If you didn't bother looking it up at the time I will tell you now, **Windows Server** is an operation system that is feature rich and is specifically designed to provide servers in networking, storage, authentication and users.
 
 Windows Server OS plays a crucial role in managing the back-end infrastructure of companies, providing server-based computing solutions for file storage, email services, web hosting, and more.
 
@@ -8,50 +8,50 @@ Windows Server OS plays a crucial role in managing the back-end infrastructure o
 
 **Server Roles and Services:**
 
-- Active Directory (AD): A directory service used for managing domain-based networks. It helps in organizing users, computers, and other resources into a centralized system.
-- DNS (Domain Name System): Provides hostname resolution services, converting domain names to IP addresses and vice versa.
-- DHCP (Dynamic Host Configuration Protocol): Dynamically assigns IP addresses to devices on a network, simplifying network management.
-- File and Storage Services: Manages file sharing and storage across a network, including features like Distributed File System (DFS) for sharing across multiple servers.
-- Web Hosting (IIS - Internet Information Services): Hosts websites and web applications. IIS is Microsoft’s web server role included in Windows Server.
-- Hyper-V: Windows Server's virtualization platform, allowing users to create and manage virtual machines (VMs).
+- **Active Directory (AD)**: A directory service used for managing domain-based networks. It helps in organizing users, computers, and other resources into a centralized system.
+- **DNS (Domain Name System)**: Provides hostname resolution services, converting domain names to IP addresses and vice versa.
+- **DHCP (Dynamic Host Configuration Protocol)**: Dynamically assigns IP addresses to devices on a network, simplifying network management.
+- **File and Storage Services**: Manages file sharing and storage across a network, including features like Distributed File System (DFS) for sharing across multiple servers.
+- **Web Hosting (IIS - Internet Information Services)**: Hosts websites and web applications. IIS is Microsoft’s web server role included in Windows Server.
+- **Hyper-V**: Windows Server's virtualization platform, allowing users to create and manage virtual machines (VMs).
 
 ## Scalability and Performance:
 
-- High Performance: Windows Server OS is built to support enterprise-level workloads, with support for thousands of users, large amounts of memory (RAM), and multiple processors.
-- Cluster Support: Provides failover clustering for high availability, allowing servers to remain online even if individual components fail.
+- **High Performance**: Windows Server OS is built to support enterprise-level workloads, with support for thousands of users, large amounts of memory (RAM), and multiple processors.
+- **Cluster Support**: Provides failover clustering for high availability, allowing servers to remain online even if individual components fail.
 
 ## Security:
 
-- Advanced Threat Protection: Built-in tools like Windows Defender Advanced Threat Protection (ATP) protect against malware, ransomware, and other security threats.
-- Firewall and Network Protection: Configurable firewalls and network isolation features to protect servers from unauthorized access.
-- Just Enough Administration (JEA) and Just-in-Time Administration (JIT): Role-based access controls to limit who can perform certain administrative tasks.
+- **Advanced Threat Protection**: Built-in tools like Windows Defender Advanced Threat Protection (ATP) protect against malware, ransomware, and other security threats.
+- **Firewall and Network Protection**: Configurable firewalls and network isolation features to protect servers from unauthorized access.
+- **Just Enough Administration (JEA) and Just-in-Time Administration (JIT)**: Role-based access controls to limit who can perform certain administrative tasks.
 
 ## Management Tools:
 
-- Windows Admin Center: A modern, browser-based management tool for managing multiple servers, clusters, and hyper-converged infrastructure (HCI).
-- PowerShell: A command-line and scripting tool that allows for automation and management of server configurations and operations.
-- Group Policy: Allows centralized management of users and computers in a network, controlling security settings, software installations, and more.
+- **Windows Admin Center**: A modern, browser-based management tool for managing multiple servers, clusters, and hyper-converged infrastructure (HCI).
+- **PowerShell**: A command-line and scripting tool that allows for automation and management of server configurations and operations.
+- **Group Policy**: Allows centralized management of users and computers in a network, controlling security settings, software installations, and more.
 
 ## - Virtualization and Cloud Integration:
 
-- Hyper-V: As a built-in hypervisor, Hyper-V allows you to run virtual machines and containers efficiently. It is essential for consolidating hardware and running multiple environments on a single physical server.
-- Hybrid Cloud Support: Integration with Microsoft Azure services, allowing for hybrid cloud setups, where parts of the infrastructure are hosted in the cloud while others remain on-premises.
+- **Hyper-V**: As a built-in hypervisor, Hyper-V allows you to run virtual machines and containers efficiently. It is essential for consolidating hardware and running multiple environments on a single physical server.
+- **Hybrid Cloud Support**: Integration with Microsoft Azure services, allowing for hybrid cloud setups, where parts of the infrastructure are hosted in the cloud while others remain on-premises.
 
 
 ## Different Editions: Windows Server is released in different editions to cater to businesses of various sizes:
 
-- Standard Edition: Suited for small to medium-sized businesses that require basic features like file sharing, application hosting, and virtualization (limited to two virtual machines).
-- Datacenter Edition: Designed for larger enterprises with heavy virtualization and cloud integration needs, allowing unlimited virtual machines.
-- Essentials Edition: Targeted at small businesses with fewer users (up to 25 users and 50 devices), offering simplified management and limited features.
+- **Standard Edition**: Suited for small to medium-sized businesses that require basic features like file sharing, application hosting, and virtualization (limited to two virtual machines).
+- **Datacenter Edition**: Designed for larger enterprises with heavy virtualization and cloud integration needs, allowing unlimited virtual machines.
+- **Essentials Edition**: Targeted at small businesses with fewer users (up to 25 users and 50 devices), offering simplified management and limited features.
 
 ## Common Use Cases:
 
-- Domain Controller: Hosts Active Directory, managing authentication and authorization across a network.
-- File Server: Provides centralized storage for users and systems in an organization, facilitating file sharing and backup.
-- Web and Application Hosting: Hosts websites, web applications, and databases.
-- Virtualization: Manages virtual machines using Hyper-V to run multiple operating systems on the same hardware.
-- Email and Collaboration: Provides back-end services like email hosting (Exchange Server) and collaboration tools (SharePoint).
-- Hybrid Cloud Services: Integrates on-premise servers with cloud services using Azure.
+- **Domain Controller**: Hosts Active Directory, managing authentication and authorization across a network.
+- **File Server**: Provides centralized storage for users and systems in an organization, facilitating file sharing and backup.
+- **Web and Application Hosting**: Hosts websites, web applications, and databases.
+- **Virtualization**: Manages virtual machines using Hyper-V to run multiple operating systems on the same hardware.
+- **Email and Collaboration**: Provides back-end services like email hosting (Exchange Server) and collaboration tools (SharePoint).
+- **Hybrid Cloud Services**: Integrates on-premise servers with cloud services using Azure.
 
 ## **The History of Windows Server**
 

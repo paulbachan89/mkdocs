@@ -44,7 +44,8 @@ nav:
             - Windows Server Installation: HomeLab/Windows_Projects/Windows_Server_Install/WinSrvInstall.md
             - DC-01: HomeLab/Windows_Projects/dc-01.md
             - DC-02: HomeLab/Windows_Projects/dc-02.md
-            - Active Directory: HomeLab/Windows_Projects/Active_Directory.md
+            - Active Directory Domain Services: HomeLab/Windows_Projects/Active_Directory.md
+            - Active Directory Users and Computers: HomeLab/Windows_Projects/users_and_computers.md
       - Linux Projects:
         - Installing Debian 12: HomeLab/Linux_Projects/Debian_12.md
         - DHCP Project: HomeLab/Linux_Projects/dhcp.md
