@@ -34,7 +34,7 @@ nav:
     - Home: index.md
     - Blog:
       - Welcome: blog/index.md
-      - Project 1: blog/posts/firstp.md
+      - Blog - Windows 10 Virtual Machine inside of VMWare ESXi: blog/posts/Win10-vmware.md
     - Homelab Projects:
       - Windows Server Projects:
         - Project Goals: HomeLab/Windows_Projects/Project_Goals.md
